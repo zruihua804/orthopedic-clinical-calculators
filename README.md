@@ -4,8 +4,7 @@
 
 ## 工具目录
 
-- [ACL 返回运动评估（基础版）](tools/acl-rts-predictor/)
-- [ACLR 返回运动评估](tools/aclr-rts-predictor/)
+- [ACLR 返回运动评估](tools/aclr-rts-predictor/) — 主版本；基础版保留在 `legacy-basic/` 供历史参考
 - [ATFL 返回运动评估](tools/atfl-rts-predictor/)
 - [AIS 计算器](tools/ais-calc/index.html)
 - [膝骨关节炎治疗预测](tools/kneeoa-treatment-predictor/)
