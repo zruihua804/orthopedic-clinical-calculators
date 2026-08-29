@@ -1,0 +1,37 @@
+table,field,type,required,source,purpose
+patients,patient_id,text,yes,system,唯一对外患者身份；用于所有随访检索
+patients,medical_record_no,text,yes,doctor/OCR,病历检索；直接标识信息
+patients,name,text,yes,doctor/OCR,直接标识信息；生产环境限制访问
+patients,sex,select,no,doctor/OCR,人口学背景
+patients,birth_date,date,no,doctor/OCR,出生日期
+patients,consent_status,select,yes,doctor,数据使用同意状态
+assessments,patient_id,text,yes,system/user,唯一可见关联字段
+assessments,timepoint,select,yes,doctor/therapist,基线/6周/12周/6个月/12个月
+assessments,assessment_date,date,yes,system/user,实际评估日期；与患者ID和节点共同用于后台更新
+assessments,affected_side,select,yes,doctor,左/右/双侧
+assessments,episode_status,select,yes,doctor,新诊断/保守康复中/复评/已结束
+assessments,symptom_duration_weeks,number,yes,doctor,症状时长
+assessments,diagnostic_confidence,select,yes,doctor,确诊/高度怀疑/待鉴别
+assessments,red_flag_present,boolean,yes,doctor,疑似断裂或其他需优先复评状况
+assessments,visa_p_total,number,no,authorized questionnaire,0–100；仅在完成时保存总分
+assessments,activity_pain_vas,number,yes,patient/clinician,指定负荷活动疼痛 0–10
+assessments,return_to_activity_status,select,yes,patient/clinician,当前重返活动状态
+assessments,week_no,number,yes,therapist,本次康复周数
+assessments,phase,select,yes,therapist,症状管理/恢复/重建/重返活动
+assessments,adherence_percent,number,no,therapist/patient,康复依从性
+rom,patient_id,text,yes,system/user,唯一可见关联字段
+rom,timepoint,select,yes,therapist,对应随访节点
+rom,measured_at,date,yes,system/user,测量日期；与患者ID和节点共同用于后台更新
+rom,affected_knee_flexion_deg,number,no,therapist,患侧膝屈曲角度
+rom,affected_knee_extension_deficit_deg,number,no,therapist,患侧膝伸展受限；0=完全伸直
+rom,reference_knee_flexion_deg,number,no,therapist,健侧膝屈曲角度
+rom,reference_knee_extension_deficit_deg,number,no,therapist,健侧膝伸展受限；0=完全伸直
+rom,affected_hip_flexion_deg,number,no,therapist,患侧髋屈伸及内外旋角度
+rom,affected_ankle_knee_to_wall_cm,number,no,therapist,患侧踝膝靠墙距离
+followup_summary,patient_id,text,yes,system/user,每位患者一行的随访总览
+followup_summary,baseline_visa_p_total,number,no,system,已保存基线 VISA-P
+followup_summary,baseline_activity_pain_vas,number,no,system,已保存基线 VAS
+followup_summary,latest_visa_p_total,number,no,system,最近 VISA-P
+followup_summary,latest_activity_pain_vas,number,yes,system,最近 VAS
+followup_summary,visa_p_change_from_baseline,calculated,no,system,基线与最近评估均完成才计算
+followup_summary,pain_change_from_baseline,calculated,no,system,基线与最近评估均有 VAS 才计算

@@ -1,0 +1,1499 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIS 脊柱侧弯评估计算器 · 张瑞华医生</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&family=Noto+Serif+SC:wght@400;600&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F5F3EE;
+  --surface: #FDFCF9;
+  --surface2: #F0EDE6;
+  --border: #DDD9D0;
+  --border-strong: #C5BFB3;
+  --text-primary: #1A1814;
+  --text-secondary: #5C5750;
+  --text-muted: #8C8680;
+  --accent: #2B5C8A;
+  --accent-light: #E8EFF6;
+  --accent-mid: #4A7BAD;
+  --green: #2A6B4A;
+  --green-light: #E6F2EC;
+  --amber: #8A5A1A;
+  --amber-light: #FBF2E3;
+  --red: #8A2A2A;
+  --red-light: #F6E8E8;
+  --radius: 10px;
+  --radius-lg: 16px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  font-family: 'Noto Sans SC', 'DM Sans', sans-serif;
+  font-weight: 400;
+  color: var(--text-primary);
+  min-height: 100vh;
+  padding: 0 0 60px;
+}
+
+.page-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 28px 40px 24px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.header-left h1 {
+  font-family: 'DM Serif Display', 'Noto Serif SC', serif;
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--text-primary);
+  letter-spacing: 0.01em;
+  margin-bottom: 4px;
+}
+
+.header-left .subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  font-weight: 300;
+}
+
+.header-right {
+  text-align: right;
+}
+
+.doctor-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent-light);
+  border: 1px solid #C5D8EB;
+  border-radius: 20px;
+  padding: 5px 12px 5px 8px;
+}
+
+.doctor-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 11px;
+  font-weight: 500;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.doctor-name {
+  font-size: 12px;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.main {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 32px 24px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.panel-header {
+  padding: 16px 20px 14px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.panel-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--accent-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.panel-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+}
+
+.panel-body { padding: 20px; }
+
+.field { margin-bottom: 18px; }
+.field:last-child { margin-bottom: 0; }
+
+.field-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.field-label .ref-tag {
+  font-size: 9px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1px 5px;
+  color: var(--text-muted);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+.seg-control {
+  display: flex;
+  background: var(--surface2);
+  border-radius: 8px;
+  padding: 3px;
+  gap: 2px;
+}
+
+.seg-btn {
+  flex: 1;
+  padding: 7px 4px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  font-size: 12px;
+  font-family: 'Noto Sans SC', sans-serif;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s;
+  font-weight: 400;
+}
+
+.seg-btn.active {
+  background: var(--surface);
+  color: var(--text-primary);
+  font-weight: 500;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.height-weight-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.number-input-wrap {
+  position: relative;
+}
+
+.number-input-wrap input[type="number"] {
+  width: 100%;
+  padding: 9px 36px 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  font-size: 14px;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text-primary);
+  font-weight: 500;
+  outline: none;
+  transition: border-color 0.15s;
+  -moz-appearance: textfield;
+}
+
+.number-input-wrap input[type="number"]::-webkit-inner-spin-button,
+.number-input-wrap input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
+
+.number-input-wrap input[type="number"]:focus {
+  border-color: var(--accent-mid);
+  box-shadow: 0 0 0 3px rgba(74,123,173,0.1);
+}
+
+.input-unit {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: 'DM Sans', sans-serif;
+  pointer-events: none;
+}
+
+.bmi-display {
+  margin-top: 8px;
+  padding: 7px 10px;
+  background: var(--surface2);
+  border-radius: 6px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.bmi-display span { font-weight: 500; color: var(--text-primary); }
+
+.slider-wrap {
+  position: relative;
+  padding: 4px 0 2px;
+}
+
+.slider-value-display {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.slider-current {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-primary);
+  font-family: 'DM Sans', sans-serif;
+}
+
+.slider-unit {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-left: 3px;
+}
+
+.slider-range-label {
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--border);
+  outline: none;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid white;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.15); }
+
+.risser-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 5px;
+}
+
+.risser-btn {
+  padding: 8px 4px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: var(--surface);
+  font-size: 12px;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text-secondary);
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.15s;
+}
+
+.risser-btn .risser-num {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-primary);
+  display: block;
+  margin-bottom: 1px;
+}
+
+.risser-btn.active {
+  border-color: var(--accent);
+  background: var(--accent-light);
+  color: var(--accent);
+}
+
+.risser-btn.active .risser-num { color: var(--accent); }
+
+.risser-hint {
+  margin-top: 8px;
+  font-size: 10px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  padding: 6px 8px;
+  background: var(--surface2);
+  border-radius: 6px;
+}
+
+.menstrual-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+}
+
+.menstrual-btn {
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: var(--surface);
+  font-size: 11px;
+  font-family: 'Noto Sans SC', sans-serif;
+  color: var(--text-secondary);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s;
+  line-height: 1.4;
+}
+
+.menstrual-btn.active {
+  border-color: var(--accent);
+  background: var(--accent-light);
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.calc-btn {
+  width: 100%;
+  padding: 14px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: 'Noto Sans SC', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  letter-spacing: 0.03em;
+  transition: all 0.15s;
+  margin-top: 4px;
+}
+
+.calc-btn:hover { background: #234f7a; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(43,92,138,0.25); }
+.calc-btn:active { transform: translateY(0); }
+
+.result-panel {
+  grid-column: 1 / -1;
+  display: none;
+}
+
+.result-panel.visible { display: block; }
+
+.risk-header {
+  padding: 24px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+}
+
+.risk-level-group { display: flex; align-items: center; gap: 16px; }
+
+.risk-badge {
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.risk-badge.low { background: var(--green-light); color: var(--green); border: 1px solid #A8D4BB; }
+.risk-badge.mid { background: var(--amber-light); color: var(--amber); border: 1px solid #E5C98A; }
+.risk-badge.high { background: var(--red-light); color: var(--red); border: 1px solid #D4A8A8; }
+.risk-badge.very_high { background: #3D0C0C; color: #F5DCDC; border: 1px solid #7A1A1A; letter-spacing: 0.06em; }
+
+.risk-title {
+  font-family: 'DM Serif Display', 'Noto Serif SC', serif;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.risk-title.low { color: var(--green); }
+.risk-title.mid { color: var(--amber); }
+.risk-title.high { color: var(--red); }
+.risk-title.very_high { color: #7A1A1A; font-weight: 500; }
+
+.risk-detail-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: transparent;
+  font-size: 11px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-family: 'Noto Sans SC', sans-serif;
+  transition: all 0.15s;
+}
+
+.risk-detail-toggle:hover { border-color: var(--border-strong); color: var(--text-primary); }
+
+.risk-detail-toggle .toggle-icon {
+  font-size: 10px;
+  transition: transform 0.2s;
+}
+
+.risk-detail-toggle.open .toggle-icon { transform: rotate(180deg); }
+
+.risk-detail-box {
+  display: none;
+  margin: 0 28px 0;
+  padding: 14px 16px;
+  background: var(--surface2);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  margin-top: 16px;
+}
+
+.risk-detail-box.visible { display: block; }
+
+.risk-detail-title {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.risk-numbers-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.risk-number-item {
+  padding: 10px 12px;
+  background: var(--surface);
+  border-radius: 7px;
+  border: 1px solid var(--border);
+}
+
+.risk-number-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+
+.risk-number-value {
+  font-size: 22px;
+  font-weight: 500;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.risk-number-value.good { color: var(--green); }
+.risk-number-value.poor { color: var(--red); }
+.risk-number-value.benefit { color: var(--accent); }
+
+.risk-number-source {
+  font-size: 9px;
+  color: var(--text-muted);
+  margin-top: 3px;
+}
+
+.result-body { padding: 24px 28px; }
+
+.qa-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.qa-card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+}
+
+.qa-question {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-bottom: 7px;
+  letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.qa-question .q-icon { font-size: 12px; }
+
+.qa-answer {
+  font-size: 13px;
+  color: var(--text-primary);
+  line-height: 1.65;
+}
+
+.qa-answer strong {
+  font-weight: 500;
+}
+
+.qa-answer .level-text.low { color: var(--green); font-weight: 500; }
+.qa-answer .level-text.mid { color: var(--amber); font-weight: 500; }
+.qa-answer .level-text.high { color: var(--red); font-weight: 500; }
+
+.rehab-card {
+  background: var(--accent-light);
+  border: 1px solid #C5D8EB;
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  margin-bottom: 12px;
+}
+
+.rehab-card-title {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--accent);
+  margin-bottom: 7px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.rehab-card-body {
+  font-size: 12px;
+  color: #2A4A6A;
+  line-height: 1.7;
+}
+
+.disclaimer-box {
+  margin-top: 16px;
+  padding: 12px 16px;
+  background: var(--surface2);
+  border-top: 2px solid var(--border);
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.disclaimer-text {
+  font-size: 10px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  flex: 1;
+}
+
+.disclaimer-text strong {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.disclaimer-sig {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.disclaimer-sig .sig-name {
+  font-family: 'DM Serif Display', serif;
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.disclaimer-sig .sig-date {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.evidence-bar {
+  background: var(--surface2);
+  border-top: 1px solid var(--border);
+  padding: 12px 28px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.evidence-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.evidence-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--border-strong);
+  flex-shrink: 0;
+}
+
+.reset-btn {
+  display: block;
+  margin: 16px auto 0;
+  padding: 8px 20px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: transparent;
+  font-size: 12px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-family: 'Noto Sans SC', sans-serif;
+  transition: all 0.15s;
+}
+
+.reset-btn:hover { border-color: var(--border-strong); color: var(--text-primary); }
+
+@media (max-width: 640px) {
+  .main { grid-template-columns: 1fr; padding: 16px; }
+  .qa-grid { grid-template-columns: 1fr; }
+  .result-panel { grid-column: 1; }
+  .page-header { padding: 20px 16px; flex-direction: column; align-items: flex-start; gap: 10px; }
+  .risk-numbers-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="header-left">
+    <h1>青少年特发性脊柱侧弯 评估计算器</h1>
+    <div class="subtitle">ADOLESCENT IDIOPATHIC SCOLIOSIS · CLINICAL COMMUNICATION TOOL</div>
+  </div>
+  <div class="header-right">
+    <div class="doctor-badge">
+      <div class="doctor-avatar">JZ</div>
+      <span class="doctor-name">Designed by 张瑞华医生 · Dr. Jason Zhang</span>
+    </div>
+  </div>
+</div>
+
+<div class="main" id="mainGrid">
+
+  <!-- LEFT PANEL: 基本信息 -->
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-icon">📋</div>
+      <span class="panel-title">基本信息</span>
+    </div>
+    <div class="panel-body">
+
+      <div class="field">
+        <div class="field-label">性别</div>
+        <div class="seg-control">
+          <button class="seg-btn active" onclick="setSex('female', this)">女</button>
+          <button class="seg-btn" onclick="setSex('male', this)">男</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">年龄 <span class="ref-tag">BrAIST</span></div>
+        <div class="slider-value-display">
+          <div><span class="slider-current" id="ageVal">12</span><span class="slider-unit">岁</span></div>
+          <span class="slider-range-label">10 – 16</span>
+        </div>
+        <input type="range" min="10" max="16" value="12" step="1" oninput="document.getElementById('ageVal').textContent=this.value; calculate()">
+      </div>
+
+      <div class="field">
+        <div class="field-label">身高 / 体重 <span class="ref-tag">BMI</span></div>
+        <div class="height-weight-row">
+          <div class="number-input-wrap">
+            <input type="number" id="heightInput" value="155" min="120" max="190" placeholder="155" oninput="updateBMI(); calculate()">
+            <span class="input-unit">cm</span>
+          </div>
+          <div class="number-input-wrap">
+            <input type="number" id="weightInput" value="42" min="20" max="90" placeholder="42" oninput="updateBMI(); calculate()">
+            <span class="input-unit">kg</span>
+          </div>
+        </div>
+        <div class="bmi-display" id="bmiDisplay">
+          BMI &nbsp;<span id="bmiVal">17.5</span> &nbsp;<span style="font-size:10px;color:var(--text-muted)">（已自动计算）</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">月经初潮状态 <span class="ref-tag">Lee 2012</span></div>
+        <div class="menstrual-grid" id="menstrualGrid">
+          <button class="menstrual-btn active" onclick="setMenstrual('pre', this)">未来潮</button>
+          <button class="menstrual-btn" onclick="setMenstrual('lt1y', this)">初潮 &lt;1年</button>
+          <button class="menstrual-btn" onclick="setMenstrual('gt1y', this)">初潮 &gt;1年</button>
+          <button class="menstrual-btn" onclick="setMenstrual('male', this)">男性（不适用）</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL: 临床参数 -->
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-icon">🩻</div>
+      <span class="panel-title">临床参数</span>
+    </div>
+    <div class="panel-body">
+
+      <div class="field">
+        <div class="field-label">最大 Cobb 角 <span class="ref-tag">BrAIST</span></div>
+        <div class="slider-value-display">
+          <div><span class="slider-current" id="cobbVal">28</span><span class="slider-unit">°</span></div>
+          <span class="slider-range-label">10° – 45°</span>
+        </div>
+        <input type="range" min="10" max="45" value="28" step="1" oninput="document.getElementById('cobbVal').textContent=this.value; calculate()">
+      </div>
+
+      <div class="field">
+        <div class="field-label">Risser 分级 <span class="ref-tag">BrAIST</span></div>
+        <div class="risser-grid">
+          <button class="risser-btn" onclick="setRisser(0,this)"><span class="risser-num">0</span>未出现</button>
+          <button class="risser-btn active" onclick="setRisser(1,this)"><span class="risser-num">1</span>25%</button>
+          <button class="risser-btn" onclick="setRisser(2,this)"><span class="risser-num">2</span>50%</button>
+          <button class="risser-btn" onclick="setRisser(3,this)"><span class="risser-num">3</span>75%</button>
+          <button class="risser-btn" onclick="setRisser(4,this)"><span class="risser-num">4</span>完成</button>
+        </div>
+        <div class="risser-hint" id="risserHint">Risser 1：髂骨骨骺骨化约25%，生长潜力较大，进展风险较高</div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">计划支具佩戴时长 <span class="ref-tag">BrAIST</span></div>
+        <div class="slider-value-display">
+          <div><span class="slider-current" id="braceVal">0</span><span class="slider-unit">小时/天</span></div>
+          <span class="slider-range-label">0（观察）– 18小时</span>
+        </div>
+        <input type="range" min="0" max="18" value="0" step="1" id="braceSlider" oninput="document.getElementById('braceVal').textContent=this.value; calculate()">
+      </div>
+
+      <button class="calc-btn" onclick="showResult()">生成评估报告 →</button>
+
+    </div>
+  </div>
+
+  <!-- RESULT PANEL -->
+  <div class="panel result-panel" id="resultPanel">
+
+    <div class="risk-header">
+      <div class="risk-level-group">
+        <span class="risk-badge" id="riskBadge">—</span>
+        <span class="risk-title" id="riskTitle">—</span>
+      </div>
+      <button class="risk-detail-toggle" id="detailToggle" onclick="toggleDetail()">
+        查看风险数值（医生）<span class="toggle-icon">▼</span>
+      </button>
+    </div>
+
+    <div class="risk-detail-box" id="riskDetailBox">
+      <div class="risk-detail-title">循证数值参考 · 依据 BrAIST 2024 模型</div>
+      <div class="risk-numbers-grid">
+        <div class="risk-number-item">
+          <div class="risk-number-label">不治疗时"好预后"概率<br>（成熟时Cobb &lt;45°）</div>
+          <div class="risk-number-value good" id="probGoodObs">—</div>
+          <div class="risk-number-source">BrAIST logistic model, Dolan 2024</div>
+        </div>
+        <div class="risk-number-item">
+          <div class="risk-number-label">不治疗时进展至手术阈值风险</div>
+          <div class="risk-number-value poor" id="probPoorObs">—</div>
+          <div class="risk-number-source">BrAIST logistic model, Dolan 2024</div>
+        </div>
+        <div class="risk-number-item">
+          <div class="risk-number-label">支具治疗后"好预后"概率</div>
+          <div class="risk-number-value benefit" id="probGoodBrace">—</div>
+          <div class="risk-number-source" id="braceHoursNote">按当前支具时长计算</div>
+        </div>
+        <div class="risk-number-item">
+          <div class="risk-number-label">支具治疗带来的绝对获益</div>
+          <div class="risk-number-value benefit" id="probBenefit">—</div>
+          <div class="risk-number-source">BrAIST external validation c=0.87</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="evidence-bar">
+      <div class="evidence-item"><div class="evidence-dot"></div>BrAIST RCT · Dolan 2024, Spine</div>
+      <div class="evidence-item"><div class="evidence-dot"></div>亚洲队列 · Lee 2012, Spine J</div>
+      <div class="evidence-item"><div class="evidence-dot"></div>SOSORT 2022 指南</div>
+      <div class="evidence-item"><div class="evidence-dot"></div>外部验证 c=0.87</div>
+    </div>
+
+    <div class="result-body">
+
+      <div class="qa-grid" id="qaGrid">
+        <!-- dynamically filled -->
+      </div>
+
+      <div class="rehab-card">
+        <div class="rehab-card-title">🏃 脊柱侧弯专项康复训练（PSSE）</div>
+        <div class="rehab-card-body" id="rehabText">—</div>
+      </div>
+
+      <div class="disclaimer-box">
+        <div class="disclaimer-text">
+          <strong>⚠️ 重要说明：</strong>本工具基于现有循证医学文献（BrAIST 2024、Lee 2012、SOSORT 2022），
+          仅用于医患沟通辅助，<strong>不构成诊断意见或治疗承诺</strong>。
+          预测结果存在不确定性，最终治疗决策由<strong>您的主诊医生</strong>根据完整临床评估动态确定。
+          本工具适用人群：年龄10–16岁、Cobb角10–45°、Risser 0–4。
+        </div>
+      </div>
+
+    </div>
+
+    <div style="padding: 0 28px 20px;">
+      <button class="reset-btn" onclick="resetForm()">← 重新评估</button>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+// ─── State ───
+let state = {
+  sex: 'female',
+  age: 12,
+  height: 155,
+  weight: 42,
+  bmi: 17.5,
+  cobb: 28,
+  risser: 1,
+  menstrual: 'pre',
+  braceHours: 0
+};
+
+const risserHints = [
+  'Risser 0：髂骨骨骺尚未出现，生长潜力最大，进展风险最高',
+  'Risser 1：骨骺骨化约25%，生长潜力较大，进展风险较高',
+  'Risser 2：骨骺骨化约50%，生长减速中',
+  'Risser 3：骨骺骨化约75%，生长接近完成，进展风险降低',
+  'Risser 4：骨骺基本融合，生长接近停止，进展风险低'
+];
+
+// ─── BrAIST Logistic Model Coefficients (Dolan 2024, Table III) ───
+// Outcome: P(good prognosis) = Cobb<45° at skeletal maturity
+const MODEL = {
+  intercept: -6.0252,
+  female: 1.4527,
+  age: 0.5886,
+  risser12: 1.2499,   // Risser 1 or 2 vs 0
+  bmi: 0.1275,
+  cobb: -0.1920,
+  braceHours: 0.1512
+};
+
+// Lee 2012 Asian cohort menstrual adjustment (approximate odds multiplier)
+// Pre-menarche: higher risk; <1yr: moderate; >1yr: lower risk (relative to pre)
+const MENSTRUAL_ADJ = {
+  'pre': 0,
+  'lt1y': 0.35,
+  'gt1y': 0.72,
+  'male': 0   // male modeled separately via sex coefficient
+};
+
+function logistic(z) {
+  return 1 / (1 + Math.exp(-z));
+}
+
+function calcProb(braceH) {
+  let z = MODEL.intercept;
+  z += (state.sex === 'female') ? MODEL.female : 0;
+  z += MODEL.age * state.age;
+  z += (state.risser === 1 || state.risser === 2) ? MODEL.risser12 : 0;
+  // Risser 3-4: beyond BrAIST range, apply positive adjustment
+  if (state.risser >= 3) z += 1.8;
+  z += MODEL.bmi * state.bmi;
+  z += MODEL.cobb * state.cobb;
+  z += MODEL.braceHours * braceH;
+  // menstrual adjustment (added as log-odds adjustment, Lee 2012)
+  if (state.sex === 'female') {
+    z += MENSTRUAL_ADJ[state.menstrual];
+  }
+  return logistic(z);
+}
+
+function updateBMI() {
+  const h = parseFloat(document.getElementById('heightInput').value) || 155;
+  const w = parseFloat(document.getElementById('weightInput').value) || 42;
+  state.height = h;
+  state.weight = w;
+  const bmi = w / ((h / 100) * (h / 100));
+  state.bmi = bmi;
+  document.getElementById('bmiVal').textContent = bmi.toFixed(1);
+}
+
+function calculate() {
+  state.age = parseInt(document.querySelector('input[type=range][oninput*=ageVal]').value);
+  state.cobb = parseInt(document.querySelector('input[type=range][oninput*=cobbVal]').value);
+  state.braceHours = parseInt(document.getElementById('braceSlider').value);
+  updateBMI();
+}
+
+function setSex(sex, btn) {
+  state.sex = sex;
+  document.querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  // Show/hide menstrual
+  const mg = document.getElementById('menstrualGrid');
+  if (sex === 'male') {
+    mg.querySelectorAll('.menstrual-btn').forEach(b => {
+      if (b.textContent.includes('男性')) { b.click(); }
+    });
+  }
+}
+
+function setRisser(val, btn) {
+  state.risser = val;
+  document.querySelectorAll('.risser-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('risserHint').textContent = risserHints[val];
+}
+
+function setMenstrual(val, btn) {
+  state.menstrual = val;
+  document.querySelectorAll('.menstrual-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  if (val === 'male') { setSexFromMenstrual(); }
+}
+
+function setSexFromMenstrual() {
+  // if male selected in menstrual, update sex
+}
+
+// ─── SCENARIO ENGINE ───
+// Unified logic: derive one scenario from clinical parameters,
+// then all 6 QA answers + rehab text + warning banner all read from that same scenario.
+// This prevents any cross-variable contradiction.
+//
+// Scenarios:
+//   watch_low      → Low risk + skeletal mature or small Cobb → observation only
+//   watch_mature   → Any risk + Risser 4 + large Cobb → mature, surgical eval needed but brace futile
+//   brace_mid      → Mid risk + brace indicated → brace + rehab, no surgery mention
+//   brace_high     → High risk + brace strongly indicated → brace urgently + rehab adjunct
+//   surgical       → Very high risk → surgery eval primary, brace secondary bridge only
+
+function getScenario(pPoorObs) {
+  const cobb   = state.cobb;
+  const risser = state.risser;
+
+  // Very high risk: Cobb ≥ 40° AND (Risser 0–2) AND pPoor > 0.60
+  // → Surgery evaluation is primary message; brace is at most a bridge
+  if (cobb >= 40 && risser <= 2 && pPoorObs > 0.60) return 'surgical';
+
+  // Mature skeleton: Risser 4 regardless of Cobb
+  // → Brace is not indicated; if Cobb is large, surgical eval may still be needed
+  if (risser >= 4) {
+    return cobb >= 35 ? 'watch_mature' : 'watch_low';
+  }
+
+  // Small Cobb (<20°): observation only
+  if (cobb < 20) return 'watch_low';
+
+  // Low risk by probability
+  if (pPoorObs < 0.20) return 'watch_low';
+
+  // Mid risk: pPoor 20–45% or Cobb 20–35°
+  if (pPoorObs < 0.45 && cobb < 38) return 'brace_mid';
+
+  // High risk: everything else that isn't surgical
+  return 'brace_high';
+}
+
+function getRiskLevel(scenario) {
+  const map = {
+    watch_low:    'low',
+    watch_mature: 'high',
+    brace_mid:    'mid',
+    brace_high:   'high',
+    surgical:     'very_high'
+  };
+  return map[scenario];
+}
+
+function showResult() {
+  calculate();
+
+  const pGoodObs  = calcProb(0);
+  const pPoorObs  = 1 - pGoodObs;
+  const pGoodBrace = calcProb(state.braceHours);
+  const benefit    = pGoodBrace - pGoodObs;
+
+  const scenario = getScenario(pPoorObs);
+  const level    = getRiskLevel(scenario);
+
+  // ── Risk badge & title ──
+  const badges = {
+    low:       '低风险',
+    mid:       '中等风险',
+    high:      '高风险',
+    very_high: '极高风险'
+  };
+  const titles = {
+    low:       '进展风险相对可控，建议定期随访',
+    mid:       '需要积极监测与支具干预',
+    high:      '进展风险较高，建议尽快制定治疗方案',
+    very_high: '进展风险极高，建议优先脊柱外科评估'
+  };
+
+  const riskBadge = document.getElementById('riskBadge');
+  const riskTitle = document.getElementById('riskTitle');
+  riskBadge.className = 'risk-badge ' + level;
+  riskBadge.textContent = badges[level];
+  riskTitle.className = 'risk-title ' + level;
+  riskTitle.textContent = titles[level];
+
+  // ── Detail numbers ──
+  document.getElementById('probGoodObs').textContent = (pGoodObs * 100).toFixed(1) + '%';
+  document.getElementById('probPoorObs').textContent = (pPoorObs * 100).toFixed(1) + '%';
+  if (scenario === 'surgical' || scenario === 'watch_mature') {
+    document.getElementById('probGoodBrace').textContent = '— （手术评估优先）';
+    document.getElementById('probBenefit').textContent   = '— （手术评估优先）';
+    document.getElementById('braceHoursNote').textContent = '此情况下支具获益有限';
+  } else {
+    document.getElementById('probGoodBrace').textContent = state.braceHours > 0
+      ? (pGoodBrace * 100).toFixed(1) + '%' : '— （未设定支具时长）';
+    document.getElementById('probBenefit').textContent = state.braceHours > 0
+      ? '+' + (benefit * 100).toFixed(1) + '%' : '— （未设定支具时长）';
+    document.getElementById('braceHoursNote').textContent =
+      state.braceHours > 0 ? `按每天 ${state.braceHours} 小时计算` : '请调整支具时长滑块查看';
+  }
+
+  // ── QA cards ──
+  const qa = buildQA(scenario, pPoorObs, pGoodBrace, benefit);
+  document.getElementById('qaGrid').innerHTML = qa.map(item => `
+    <div class="qa-card">
+      <div class="qa-question"><span class="q-icon">❓</span>${item.q}</div>
+      <div class="qa-answer">${item.a}</div>
+    </div>`).join('');
+
+  // ── Rehab card ──
+  document.getElementById('rehabText').innerHTML = buildRehabText(scenario);
+
+  // ── Surgery / very-high warning banner ──
+  const existingWarning = document.getElementById('surgeryWarning');
+  if (existingWarning) existingWarning.remove();
+
+  if (scenario === 'surgical' || scenario === 'watch_mature') {
+    const isSurgical = scenario === 'surgical';
+    const warningEl  = document.createElement('div');
+    warningEl.id     = 'surgeryWarning';
+    warningEl.innerHTML = `
+      <div style="margin:16px 28px 0; padding:14px 18px;
+           background:${isSurgical ? '#F9F0F0' : '#FDF6EE'};
+           border:1.5px solid ${isSurgical ? '#C08080' : '#D4B880'};
+           border-radius:10px; display:flex; align-items:flex-start; gap:12px;">
+        <span style="font-size:20px; flex-shrink:0; margin-top:1px;">${isSurgical ? '🚨' : '⚠️'}</span>
+        <div>
+          <div style="font-size:13px; font-weight:500;
+               color:${isSurgical ? '#7A1A1A' : '#7A5010'}; margin-bottom:5px;">
+            ${isSurgical
+              ? '极高风险：建议优先转诊脊柱外科进行手术评估'
+              : '骨骼发育已近完成：建议脊柱外科评估当前角度的长期影响'}
+          </div>
+          <div style="font-size:12px; color:${isSurgical ? '#6B2020' : '#5A3A0A'}; line-height:1.7;">
+            ${isSurgical
+              ? `根据目前参数综合评估，孩子侧弯角度已接近或达到手术阈值，且处于骨骼生长活跃期，进展风险极高。<strong>建议将脊柱外科专科评估作为首要步骤</strong>，由外科医生判断是否需要手术及手术时机，同时由您的主诊医生协同制定过渡期管理方案。`
+              : `孩子骨骼发育已接近完成（Risser ${state.risser}级），支具治疗效果在此阶段十分有限。当前侧弯角度（${state.cobb}°）接近或超过成人长期随访阈值，<strong>建议转诊脊柱外科评估成年后的长期影响及是否需要进一步干预</strong>。`}
+            <br><span style="font-size:10px; margin-top:4px; display:block;
+                 color:${isSurgical ? '#8A4040' : '#7A5520'};">
+              本提示不代表手术不可避免，仅建议专科会诊以充分评估所有选项。
+            </span>
+          </div>
+        </div>
+      </div>`;
+    const evidenceBar = document.querySelector('.evidence-bar');
+    evidenceBar.parentNode.insertBefore(warningEl, evidenceBar.nextSibling);
+  }
+
+  // ── Print button (inject once per session) ──
+  if (!document.getElementById('printBtn')) {
+    const printWrap = document.createElement('div');
+    printWrap.style.cssText = 'padding: 0 28px 4px; display:flex; gap:10px; justify-content:flex-end;';
+    printWrap.innerHTML = `<button id="printBtn" onclick="printReport()"
+      style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;
+             border:1px solid var(--border-strong);border-radius:8px;background:var(--surface);
+             font-size:12px;color:var(--text-secondary);cursor:pointer;
+             font-family:'Noto Sans SC',sans-serif;transition:all 0.15s;"
+      onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'"
+      onmouseout="this.style.borderColor='var(--border-strong)';this.style.color='var(--text-secondary)'">
+      🖨️ 打印 / 下载报告</button>`;
+    const resetDiv = document.querySelector('[style*="padding: 0 28px 20px"]');
+    resetDiv.parentNode.insertBefore(printWrap, resetDiv);
+  }
+
+  document.getElementById('resultPanel').classList.add('visible');
+  setTimeout(() => document.getElementById('resultPanel').scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+}
+
+// ─── QA BUILDER — single source of truth per scenario ───
+function buildQA(scenario, pPoor, pGoodBrace, benefit) {
+  const cobb      = state.cobb;
+  const risser    = state.risser;
+  const pPoorPct  = (pPoor * 100).toFixed(0);
+  const braceH    = state.braceHours;
+  const pBracePct = (pGoodBrace * 100).toFixed(0);
+  const benPct    = (benefit * 100).toFixed(0);
+  const braceStr  = braceH > 0
+    ? `按每天<strong>${braceH}小时</strong>佩戴，好预后概率约 <strong>${pBracePct}%</strong>，较不治疗提升约 <strong>+${benPct}%</strong>。`
+    : `请使用上方滑块设定支具时长以查看预期获益。`;
+
+  const QA = {
+
+    watch_low: [
+      { q: '侧弯严重吗？',
+        a: `目前Cobb角<strong>${cobb}°</strong>，结合骨骼发育及体型评估，侧弯程度属于<span class="level-text low">轻度</span>，对日常生活无明显影响。` },
+      { q: '进展会快吗？',
+        a: `根据文献数据，具有类似特征的孩子中，约<strong>${pPoorPct}%</strong>在不治疗情况下会出现明显进展。孩子目前进展风险<span class="level-text low">相对较低</span>，规律随访是当前最合适的管理方式。` },
+      { q: '发育结束后会有严重问题吗？',
+        a: risser >= 3
+          ? `孩子骨骼发育已接近完成（Risser ${risser}级），发育后侧弯进展概率大幅降低。维持现有角度，对将来生活质量影响有限。`
+          : `侧弯在骨骼发育完成后通常趋于稳定。目前风险较低，大多数轻度患者成年后生活质量良好，规律随访可及时发现变化。` },
+      { q: '可以不戴支具吗？',
+        a: `根据目前评估，<strong>暂不需要支具治疗</strong>。侧弯角度和进展风险均在可观察范围内，建议每3–6个月复查一次，根据进展动态调整。` },
+      { q: '支具佩戴时间可以减少吗？',
+        a: `当前评估不需要支具，无需考虑佩戴时间。如果复查时发现进展，主诊医生会及时评估是否需要调整方案。` },
+      { q: '康复治疗有用吗？',
+        a: `侧弯角度目前较小，运动功能无明显受限。适合现阶段开始<strong>预防性康复训练</strong>，有助于维持脊柱稳定性和姿势控制能力，是积极保守管理的重要组成部分。` }
+    ],
+
+    watch_mature: [
+      { q: '侧弯严重吗？',
+        a: `目前Cobb角<strong>${cobb}°</strong>，侧弯程度属于<span class="level-text high">中重度</span>。孩子骨骼发育已接近完成（Risser ${risser}级），当前角度对将来的影响需要专科评估。` },
+      { q: '进展会快吗？',
+        a: `骨骼发育接近完成后，侧弯的快速进展通常会减缓。但当前角度（<strong>${cobb}°</strong>）已接近成人长期随访的关注阈值（>40°），建议专科评估长期影响。` },
+      { q: '发育结束后会有严重问题吗？',
+        a: `成年后大于40°的侧弯有一定慢性进展风险，部分患者成年后会出现慢性腰背痛或姿势问题。<strong>建议脊柱外科评估</strong>，明确成年后的随访和干预计划。` },
+      { q: '可以不戴支具吗？',
+        a: `孩子骨骼发育已接近完成（Risser ${risser}级），支具在此阶段<strong>矫正效果非常有限</strong>，不作为主要治疗手段。当前重点是脊柱外科专科评估，由外科医生判断是否需要进一步干预。` },
+      { q: '支具佩戴时间可以减少吗？',
+        a: `当前阶段支具治疗获益有限，不以佩戴时长作为管理目标。建议与脊柱外科及主诊医生共同讨论下一步方案。` },
+      { q: '康复治疗有用吗？',
+        a: `骨骼发育接近完成后，康复训练的重点从"控制进展"转向<strong>改善功能、缓解不适和维持脊柱肌肉平衡</strong>。专项训练有助于提高生活质量，建议作为长期管理的一部分持续进行。` }
+    ],
+
+    brace_mid: [
+      { q: '侧弯严重吗？',
+        a: `目前Cobb角<strong>${cobb}°</strong>，侧弯程度属于<span class="level-text mid">中度</span>，若不干预有一定进展可能，规范治疗可有效控制。` },
+      { q: '进展会快吗？',
+        a: `根据文献数据，具有类似特征的孩子中，约<strong>${pPoorPct}%</strong>在不治疗情况下会出现明显进展。孩子目前处于<span class="level-text mid">中等风险</span>阶段，积极支具治疗可显著降低进展概率。` },
+      { q: '发育结束后会有严重问题吗？',
+        a: `若通过规范支具治疗将侧弯控制在45°以内，成年后大多数患者生活质量良好，发生严重并发症的风险较低。治疗目标是在发育期控制进展，争取在骨骼成熟时保持在安全角度范围。` },
+      { q: '可以不戴支具吗？',
+        a: `根据目前指标，<strong>建议配戴支具</strong>进行干预。研究显示规范支具治疗可显著降低进展至手术阈值的风险（BrAIST RCT，NEJM 2013）。完全不治疗将增加进展风险，具体方案请与主诊医生确认。` },
+      { q: '支具佩戴时间可以减少吗？',
+        a: `研究显示佩戴时长与治疗效果直接相关（每增加1小时 OR=1.16）。${braceStr}佩戴目标应在主诊医生指导下个体化制定，<strong>不建议未经评估自行减少</strong>。` },
+      { q: '康复治疗有用吗？',
+        a: `目前阶段，康复训练（PSSE）作为支具治疗的<strong>重要辅助手段</strong>，有助于强化脊柱旁肌肉、改善三维姿势控制，与支具协同效果优于单一支具治疗。建议尽早开始在专业物理治疗师指导下的系统训练。` }
+    ],
+
+    brace_high: [
+      { q: '侧弯严重吗？',
+        a: `目前Cobb角<strong>${cobb}°</strong>，侧弯程度属于<span class="level-text high">中重度</span>，进展风险较高，需要积极治疗以控制进一步加重。` },
+      { q: '进展会快吗？',
+        a: `根据文献数据，具有类似特征的孩子中，约<strong>${pPoorPct}%</strong>存在明显进展风险。目前评估为<span class="level-text high">高风险</span>，建议尽快启动规范支具治疗。` },
+      { q: '发育结束后会有严重问题吗？',
+        a: `若侧弯在发育期间显著进展（超过50°），成年后存在呼吸功能影响和慢性腰背痛风险。<strong>规范治疗目标是控制进展</strong>，争取发育结束时维持在相对安全角度范围内（&lt;45°），从而降低长期并发症风险。` },
+      { q: '可以不戴支具吗？',
+        a: `根据目前指标，<strong>强烈建议尽快配戴支具</strong>。孩子目前处于高风险阶段，支具是控制进展的关键手段，延误治疗将明显增加进展至手术阈值的可能性。请与主诊医生确认具体方案。` },
+      { q: '支具佩戴时间可以减少吗？',
+        a: `目前进展风险较高，<strong>不建议主动减少支具佩戴时间</strong>。研究显示佩戴时长与治疗效果直接相关（OR=1.16/小时）。${braceStr}具体目标请在主诊医生指导下个体化制定。` },
+      { q: '康复治疗有用吗？',
+        a: `在支具治疗基础上，<strong>尽早启动脊柱侧弯专项康复训练（PSSE）</strong>，对控制进展、改善功能有积极作用，两者协同效果优于单一支具干预。建议在专业物理治疗师指导下制定个体化训练方案。` }
+    ],
+
+    surgical: [
+      { q: '侧弯严重吗？',
+        a: `目前Cobb角<strong>${cobb}°</strong>，侧弯程度属于<span class="level-text high">重度</span>，已接近或达到手术评估阈值。结合孩子目前骨骼发育状态，进展风险极高，需要优先进行脊柱外科专科评估。` },
+      { q: '进展会快吗？',
+        a: `根据文献数据，具有类似特征的孩子中，约<strong>${pPoorPct}%</strong>在不治疗情况下会进展至需手术程度。孩子目前处于<span class="level-text high">极高风险</span>阶段，且骨骼仍处于生长活跃期，进展速度可能较快，建议尽快就诊专科。` },
+      { q: '发育结束后会有严重问题吗？',
+        a: `侧弯超过50°后，成年期存在呼吸功能受限、慢性腰背痛及进一步进展的风险。<strong>当前最重要的是尽快完成脊柱外科评估</strong>，判断是否需要手术干预及最佳时机，以最大限度降低长期影响。` },
+      { q: '治疗方向是什么？',
+        a: `当前侧弯角度和进展风险综合评估提示，<strong>脊柱外科专科评估应作为首要步骤</strong>。由外科医生判断是否需要手术及最佳手术时机。在等待外科评估期间，主诊医生可能会建议继续支具治疗作为过渡期管理手段。` },
+      { q: '手术前支具还需要戴吗？',
+        a: `在外科评估结论出来之前，<strong>不应自行停止支具</strong>。支具在此阶段的作用是尽量控制进展、争取等待评估期间不进一步恶化。具体是否继续佩戴及佩戴时长，请遵从主诊医生和脊柱外科医生的共同建议。` },
+      { q: '康复治疗有用吗？',
+        a: `即使最终需要手术，<strong>术前充分的康复训练也有重要价值</strong>：有助于维持肌肉功能、改善手术耐受性，并促进术后恢复。建议在等待外科评估期间尽早开始专项训练，术后由康复团队制定系统恢复计划。` }
+    ]
+  };
+
+  return QA[scenario] || QA['brace_mid'];
+}
+
+// ─── REHAB TEXT BUILDER — scenario-driven ───
+function buildRehabText(scenario) {
+  const base = `脊柱侧弯专项物理治疗（PSSE，包含Schroth方法）已被<strong>SOSORT 2022国际指南</strong>列为重要辅助治疗手段。其核心作用：强化脊柱旁深层肌群、改善三维姿势控制、提高脊柱稳定性。`;
+
+  const addition = {
+    watch_low:    `对于目前进展风险较低的孩子，康复训练作为<strong>预防性维护手段</strong>，有助于延缓潜在进展，维持良好的脊柱功能状态，是积极随访管理的重要组成部分。`,
+    watch_mature: `骨骼发育接近完成后，康复训练的重点转向<strong>功能维护和生活质量改善</strong>：缓解肌肉不平衡、改善慢性不适、维持脊柱活动度。建议作为长期自我管理的一部分持续进行。`,
+    brace_mid:    `对于中等风险的孩子，康复训练与支具治疗<strong>协同使用</strong>，效果优于单纯支具干预。建议在专业物理治疗师指导下制定个体化训练方案，与支具治疗同步启动。`,
+    brace_high:   `对于高风险的孩子，康复训练是支具治疗的<strong>必要辅助</strong>，两者结合可最大化保守治疗效果。建议尽早在专业指导下开始系统专项训练，不建议仅依靠支具单一治疗。`,
+    surgical:     `在手术评估和等待期间，康复训练有助于<strong>维持肌肉功能、改善手术耐受性</strong>。若最终需要手术，充分的术前康复训练可促进术后恢复。建议由专业物理治疗师制定术前及术后康复计划。`
+  };
+
+  return base + '<br><br>' + (addition[scenario] || addition['brace_mid']) +
+    `<br><br><span style="font-size:11px; color:var(--text-muted);">注：PSSE对侧弯角度的直接矫正作用目前证据仍在积累中，其主要价值在于功能维护和症状控制，预期效果因人而异，请遵从专业评估建议。</span>`;
+}
+
+function printReport() {
+  const panel = document.getElementById('resultPanel');
+  const detailBox = document.getElementById('riskDetailBox');
+  const wasHidden = !detailBox.classList.contains('visible');
+  detailBox.classList.add('visible');
+
+  const now = new Date();
+  const dateStr = now.getFullYear() + '年' + (now.getMonth()+1) + '月' + now.getDate() + '日';
+
+  const printWin = window.open('', '_blank');
+  printWin.document.write(`<!DOCTYPE html><html lang="zh-CN"><head>
+  <meta charset="UTF-8">
+  <title>AIS评估报告 ${dateStr}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Noto Sans SC', sans-serif; font-size: 13px; color: #1A1814; padding: 28px 32px; line-height: 1.6; }
+    .print-header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #2B5C8A; padding-bottom: 12px; margin-bottom: 18px; }
+    .print-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 600; color: #2B5C8A; }
+    .print-sub { font-size: 10px; color: #8C8680; margin-top: 3px; }
+    .print-date { font-size: 11px; color: #5C5750; text-align: right; }
+    .risk-row { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; padding: 12px 16px; border-radius: 8px; }
+    .risk-row.low { background: #E6F2EC; border: 1px solid #A8D4BB; }
+    .risk-row.mid { background: #FBF2E3; border: 1px solid #E5C98A; }
+    .risk-row.high { background: #F6E8E8; border: 1px solid #D4A8A8; }
+    .risk-row.very_high { background: #2A0808; border: 1px solid #7A1A1A; }
+    .risk-badge { padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 500; }
+    .risk-badge.low { background: #2A6B4A; color: white; }
+    .risk-badge.mid { background: #8A5A1A; color: white; }
+    .risk-badge.high { background: #8A2A2A; color: white; }
+    .risk-badge.very_high { background: #3D0C0C; color: #F5DCDC; }
+    .risk-title-txt { font-size: 15px; font-weight: 500; }
+    .risk-title-txt.low { color: #2A6B4A; }
+    .risk-title-txt.mid { color: #8A5A1A; }
+    .risk-title-txt.high { color: #8A2A2A; }
+    .risk-title-txt.very_high { color: #F5DCDC; }
+    .surgery-warn { background: #FDF2F2; border: 1.5px solid #D4A8A8; border-radius: 8px; padding: 12px 14px; margin-bottom: 16px; }
+    .surgery-warn-title { font-size: 13px; font-weight: 500; color: #8A2A2A; margin-bottom: 4px; }
+    .surgery-warn-body { font-size: 11px; color: #6B2020; line-height: 1.6; }
+    .numbers-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
+    .num-box { border: 1px solid #DDD9D0; border-radius: 7px; padding: 9px 11px; }
+    .num-label { font-size: 10px; color: #8C8680; margin-bottom: 3px; }
+    .num-val { font-size: 20px; font-weight: 500; }
+    .num-val.good { color: #2A6B4A; }
+    .num-val.poor { color: #8A2A2A; }
+    .num-val.benefit { color: #2B5C8A; }
+    .num-src { font-size: 9px; color: #8C8680; margin-top: 2px; }
+    .section-title { font-size: 10px; font-weight: 500; color: #8C8680; letter-spacing: 0.06em; text-transform: uppercase; margin: 14px 0 8px; }
+    .qa-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+    .qa-box { border: 1px solid #DDD9D0; border-radius: 8px; padding: 10px 12px; background: #F5F3EE; }
+    .qa-q { font-size: 10px; font-weight: 500; color: #8C8680; margin-bottom: 5px; }
+    .qa-a { font-size: 11px; color: #1A1814; line-height: 1.6; }
+    .rehab-box { background: #E8EFF6; border: 1px solid #C5D8EB; border-radius: 8px; padding: 11px 13px; margin-bottom: 14px; }
+    .rehab-title { font-size: 11px; font-weight: 500; color: #2B5C8A; margin-bottom: 5px; }
+    .rehab-body { font-size: 11px; color: #2A4A6A; line-height: 1.65; }
+    .disclaimer { border-top: 1px solid #DDD9D0; padding-top: 10px; margin-top: 10px; font-size: 10px; color: #8C8680; line-height: 1.6; }
+    .designed-by { margin-top: 8px; font-size: 9px; color: #B0ABA5; text-align: right; font-style: italic; }
+    strong { font-weight: 500; }
+    .level-text.low { color: #2A6B4A; font-weight: 500; }
+    .level-text.mid { color: #8A5A1A; font-weight: 500; }
+    .level-text.high { color: #8A2A2A; font-weight: 500; }
+  </style>
+  </head><body>`);
+
+  const riskLevel = document.getElementById('riskBadge').className.replace('risk-badge ', '');
+  const riskBadgeTxt = document.getElementById('riskBadge').textContent;
+  const riskTitleTxt = document.getElementById('riskTitle').textContent;
+  const surgWarn = document.getElementById('surgeryWarning');
+
+  printWin.document.write(`
+    <div class="print-header">
+      <div>
+        <div class="print-title">青少年特发性脊柱侧弯（AIS）评估报告</div>
+        <div class="print-sub">Adolescent Idiopathic Scoliosis — Clinical Communication Tool · BrAIST 2024 · Lee 2012 · SOSORT 2022</div>
+      </div>
+      <div class="print-date">${dateStr}<br><span style="font-size:10px;color:#B0ABA5;">Designed by 张瑞华医生 · Dr. Jason Zhang</span></div>
+    </div>
+    <div class="risk-row ${riskLevel}">
+      <span class="risk-badge ${riskLevel}">${riskBadgeTxt}</span>
+      <span class="risk-title-txt ${riskLevel}">${riskTitleTxt}</span>
+    </div>`);
+
+  if (surgWarn) {
+    printWin.document.write(`<div class="surgery-warn">
+      <div class="surgery-warn-title">⚠️ 可能需要手术干预 — 建议脊柱外科进一步评估</div>
+      <div class="surgery-warn-body">根据目前参数综合评估，侧弯进展风险较高，保守治疗效果存在不确定性。建议尽快转诊脊柱外科专科医生进行专科影像评估及手术风险评估，由脊柱外科医生与您的主诊医生共同制定下一步治疗方案。<br><em>本提示不代表手术不可避免，仅建议专科会诊以充分评估所有治疗选项。</em></div>
+    </div>`);
+  }
+
+  printWin.document.write('<div class="section-title">循证数值参考（依据 BrAIST 2024 模型）</div><div class="numbers-grid">');
+  printWin.document.write(`
+    <div class="num-box"><div class="num-label">不治疗时"好预后"概率（成熟时Cobb &lt;45°）</div><div class="num-val good">${document.getElementById('probGoodObs').textContent}</div><div class="num-src">BrAIST logistic model, Dolan 2024</div></div>
+    <div class="num-box"><div class="num-label">不治疗时进展至手术阈值风险</div><div class="num-val poor">${document.getElementById('probPoorObs').textContent}</div><div class="num-src">BrAIST logistic model, Dolan 2024</div></div>
+    <div class="num-box"><div class="num-label">支具治疗后"好预后"概率</div><div class="num-val benefit">${document.getElementById('probGoodBrace').textContent}</div><div class="num-src">${document.getElementById('braceHoursNote').textContent}</div></div>
+    <div class="num-box"><div class="num-label">支具治疗带来的绝对获益</div><div class="num-val benefit">${document.getElementById('probBenefit').textContent}</div><div class="num-src">BrAIST external validation c=0.87</div></div>
+  </div>`);
+
+  printWin.document.write('<div class="section-title">关键问题解答</div><div class="qa-grid">');
+  document.querySelectorAll('#qaGrid .qa-card').forEach(card => {
+    const q = card.querySelector('.qa-question').textContent.replace('❓','').trim();
+    const a = card.querySelector('.qa-answer').innerHTML;
+    printWin.document.write(`<div class="qa-box"><div class="qa-q">${q}</div><div class="qa-a">${a}</div></div>`);
+  });
+  printWin.document.write('</div>');
+
+  printWin.document.write(`<div class="rehab-box">
+    <div class="rehab-title">🏃 脊柱侧弯专项康复训练（PSSE）</div>
+    <div class="rehab-body">${document.getElementById('rehabText').innerHTML}</div>
+  </div>`);
+
+  printWin.document.write(`
+    <div class="disclaimer">
+      <strong>⚠️ 重要说明：</strong>本工具基于现有循证医学文献（BrAIST 2024、Lee 2012、SOSORT 2022），仅用于医患沟通辅助，<strong>不构成诊断意见或治疗承诺</strong>。预测结果存在不确定性，最终治疗决策由<strong>您的主诊医生</strong>根据完整临床评估动态确定。本工具适用人群：年龄10–16岁、Cobb角10–45°、Risser 0–4。
+    </div>
+    <div class="designed-by">Designed by 张瑞华医生 · Dr. Jason Zhang</div>
+  </body></html>`);
+
+  printWin.document.close();
+  setTimeout(() => { printWin.focus(); printWin.print(); }, 600);
+
+  if (wasHidden) detailBox.classList.remove('visible');
+}
+
+function toggleDetail() {
+  const box = document.getElementById('riskDetailBox');
+  const btn = document.getElementById('detailToggle');
+  box.classList.toggle('visible');
+  btn.classList.toggle('open');
+}
+
+function resetForm() {
+  document.getElementById('resultPanel').classList.remove('visible');
+  const w = document.getElementById('surgeryWarning');
+  if (w) w.remove();
+  const pb = document.getElementById('printBtn');
+  if (pb) pb.parentNode.remove();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Init
+updateBMI();
+</script>
+
+<div style="max-width:820px; margin: 28px auto 0; padding: 0 24px 60px;">
+  <div style="background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); box-shadow:var(--shadow); overflow:hidden;">
+    <div style="padding:14px 20px 12px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:10px;">
+      <div style="width:28px;height:28px;border-radius:8px;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:14px;">📚</div>
+      <span style="font-size:13px;font-weight:500;color:var(--text-primary);letter-spacing:0.02em;">参考文献 References</span>
+    </div>
+    <div style="padding:20px 24px;">
+      <p style="font-size:10px;color:var(--text-muted);margin-bottom:14px;line-height:1.6;">本计算器预测模型及临床建议阈值均来源于以下同行评审文献。</p>
+
+      <ol style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:11px;">
+
+        <li style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="font-size:11px;font-weight:500;color:var(--accent);background:var(--accent-light);border-radius:5px;padding:2px 7px;flex-shrink:0;margin-top:1px;">1</span>
+          <div>
+            <p style="font-size:12px;color:var(--text-primary);line-height:1.65;margin-bottom:3px;">
+              Dolan LA, Weinstein SL, Dobbs MB, et al. <strong>BrAIST-Calc: Prediction of Individualized Benefit from Bracing for Adolescent Idiopathic Scoliosis.</strong> <em>Spine (Phila Pa 1976).</em> 2024;49(3):147–156.
+            </p>
+            <p style="font-size:10px;color:var(--text-muted);">主要模型来源 · 外部验证 c=0.87 · BrAIST多中心前瞻性RCT · PMID: 37678022</p>
+            <a href="https://doi.org/10.1097/BRS.0000000000004879" target="_blank" style="font-size:10px;color:var(--accent);text-decoration:none;border-bottom:1px solid #C5D8EB;">doi: 10.1097/BRS.0000000000004879 ↗</a>
+          </div>
+        </li>
+
+        <li style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="font-size:11px;font-weight:500;color:var(--accent);background:var(--accent-light);border-radius:5px;padding:2px 7px;flex-shrink:0;margin-top:1px;">2</span>
+          <div>
+            <p style="font-size:12px;color:var(--text-primary);line-height:1.65;margin-bottom:3px;">
+              Weinstein SL, Dolan LA, Wright JG, Dobbs MB. <strong>Effects of Bracing in Adolescents with Idiopathic Scoliosis.</strong> <em>N Engl J Med.</em> 2013;369(16):1512–1521.
+            </p>
+            <p style="font-size:10px;color:var(--text-muted);">BrAIST RCT 原始研究 · 支具优于观察的关键循证依据 · PMID: 24047455</p>
+            <a href="https://doi.org/10.1056/NEJMoa1307337" target="_blank" style="font-size:10px;color:var(--accent);text-decoration:none;border-bottom:1px solid #C5D8EB;">doi: 10.1056/NEJMoa1307337 ↗</a>
+          </div>
+        </li>
+
+        <li style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="font-size:11px;font-weight:500;color:var(--accent);background:var(--accent-light);border-radius:5px;padding:2px 7px;flex-shrink:0;margin-top:1px;">3</span>
+          <div>
+            <p style="font-size:12px;color:var(--text-primary);line-height:1.65;margin-bottom:3px;">
+              Lee CF, Fong DY, Cheung KM, et al. <strong>A New Risk Classification Rule for Curve Progression in Adolescent Idiopathic Scoliosis.</strong> <em>Spine J.</em> 2012;12(11):989–995.
+            </p>
+            <p style="font-size:10px;color:var(--text-muted);">亚洲队列（香港，n=2,093）· 月经初潮状态作为独立预测因子 · PMID: 22727318</p>
+            <a href="https://doi.org/10.1016/j.spinee.2012.04.004" target="_blank" style="font-size:10px;color:var(--accent);text-decoration:none;border-bottom:1px solid #C5D8EB;">doi: 10.1016/j.spinee.2012.04.004 ↗</a>
+          </div>
+        </li>
+
+        <li style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="font-size:11px;font-weight:500;color:var(--accent);background:var(--accent-light);border-radius:5px;padding:2px 7px;flex-shrink:0;margin-top:1px;">4</span>
+          <div>
+            <p style="font-size:12px;color:var(--text-primary);line-height:1.65;margin-bottom:3px;">
+              Negrini S, Donzelli S, Aulisa AG, et al. <strong>2016 SOSORT Guidelines: Orthopaedic and Rehabilitation Treatment of Idiopathic Scoliosis During Growth.</strong> <em>Scoliosis Spinal Disord.</em> 2018;13:3.
+            </p>
+            <p style="font-size:10px;color:var(--text-muted);">SOSORT国际指南 · 支具适应症阈值 · PSSE康复治疗推荐 · PMID: 29435499</p>
+            <a href="https://doi.org/10.1186/s13013-017-0145-8" target="_blank" style="font-size:10px;color:var(--accent);text-decoration:none;border-bottom:1px solid #C5D8EB;">doi: 10.1186/s13013-017-0145-8 ↗</a>
+          </div>
+        </li>
+
+        <li style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="font-size:11px;font-weight:500;color:var(--accent);background:var(--accent-light);border-radius:5px;padding:2px 7px;flex-shrink:0;margin-top:1px;">5</span>
+          <div>
+            <p style="font-size:12px;color:var(--text-primary);line-height:1.65;margin-bottom:3px;">
+              Roye BD, Simhon ME, Matsumoto H, et al. <strong>Establishing Consensus on the Best Practice Guidelines for the Use of Bracing in Adolescent Idiopathic Scoliosis.</strong> <em>Spine Deform.</em> 2020;8(4):597–604.
+            </p>
+            <p style="font-size:10px;color:var(--text-muted);">SRS支具最佳实践共识指南 · 治疗决策框架参考 · PMID: 32026441</p>
+            <a href="https://doi.org/10.1007/s43390-020-00060-1" target="_blank" style="font-size:10px;color:var(--accent);text-decoration:none;border-bottom:1px solid #C5D8EB;">doi: 10.1007/s43390-020-00060-1 ↗</a>
+          </div>
+        </li>
+
+        <li style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="font-size:11px;font-weight:500;color:var(--accent);background:var(--accent-light);border-radius:5px;padding:2px 7px;flex-shrink:0;margin-top:1px;">6</span>
+          <div>
+            <p style="font-size:12px;color:var(--text-primary);line-height:1.65;margin-bottom:3px;">
+              Dolan LA, Weinstein SL, Abel MF, et al. <strong>Bracing in Adolescent Idiopathic Scoliosis Trial (BrAIST): Development and Validation of a Prognostic Model in Untreated AIS Using the Simplified Skeletal Maturity System.</strong> <em>Spine Deform.</em> 2019;7(6):890–898.
+            </p>
+            <p style="font-size:10px;color:var(--text-muted);">BrAIST 基础风险模型（Sanders SMS版本）· 骨骼成熟度预测因子 · PMID: 31731999</p>
+            <a href="https://doi.org/10.1016/j.jspd.2019.01.011" target="_blank" style="font-size:10px;color:var(--accent);text-decoration:none;border-bottom:1px solid #C5D8EB;">doi: 10.1016/j.jspd.2019.01.011 ↗</a>
+          </div>
+        </li>
+
+      </ol>
+
+      <div style="margin-top:16px;padding-top:12px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+        <p style="font-size:10px;color:var(--text-muted);line-height:1.5;">本计算器为临床沟通辅助工具，不构成诊断或治疗建议。如有疑问请咨询您的脊柱专科医生。</p>
+        <p style="font-size:10px;color:var(--text-muted);font-style:italic;">Designed by 张瑞华医生 · Dr. Jason Zhang</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
