@@ -4,6 +4,7 @@
 
 ## 工具目录
 
+- [腕舟骨骨折 / 不愈合 / SNAC 决策工具](tools/scaphoid-decision-tool/scaphoid-decision-tool.html) — 急性舟骨骨折、骨不愈合与 SNAC 的交互式临床分流
 - [ACLR 返回运动评估](tools/aclr-rts-predictor/) — 主版本；基础版保留在 `legacy-basic/` 供历史参考
 - [ATFL 返回运动评估](tools/atfl-rts-predictor/)
 - [AIS 计算器](tools/ais-calc/index.html)
