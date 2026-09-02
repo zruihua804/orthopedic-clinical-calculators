@@ -5,19 +5,21 @@
 <title>腕舟骨骨折 / 不愈合 / SNAC 决策工具</title>
 <style>
 :root{--ink:#102a43;--muted:#627d98;--line:#d9e2ec;--bg:#f5f8fb;--card:#fff;--blue:#1769aa;--deep:#0b4f6c;--teal:#087f8c;--amber:#b7791f;--red:#b42318;--soft:#eaf4fb}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif}.wrap{max-width:1120px;margin:auto;padding:30px 20px 56px}header{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;border-bottom:1px solid var(--line);padding-bottom:18px}h1{font-size:27px;line-height:1.2;margin:0 0 8px}h2{font-size:20px;margin:0 0 8px}h3{font-size:16px;margin:18px 0 7px}.sub,.muted{color:var(--muted)}.legal{margin:18px 0;padding:12px 15px;border-left:4px solid var(--amber);background:#fffaf0;color:#664c18;font-size:13px}.scene-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px}.scene{display:flex;flex-direction:column;min-height:215px;padding:22px;border:1px solid var(--line);background:var(--card);border-radius:12px;cursor:pointer;text-align:left;transition:.15s}.scene:hover{border-color:var(--blue);box-shadow:0 7px 20px #102a4314;transform:translateY(-2px)}.scene .letter{color:var(--blue);font-weight:700;font-size:13px}.scene h2{margin-top:7px}.scene p{margin:0;color:var(--muted)}.scene span:last-child{margin-top:auto;color:var(--blue);font-weight:600}.wizard{display:none}.wizard.active{display:block}.topline{display:flex;align-items:center;gap:13px;margin:20px 0}.tag{background:var(--soft);color:var(--blue);font-size:13px;font-weight:700;padding:3px 9px;border-radius:20px}.progress{display:flex;gap:5px;flex:1}.dot{height:6px;background:#cbd5e1;border-radius:10px;flex:1}.dot.on{background:var(--teal)}.step{display:none;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px}.step.active{display:block}.step-title{margin:0 0 4px;font-size:22px}.helper{color:var(--muted);margin:0 0 20px}.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 20px}.field{border-bottom:1px solid #edf2f7;padding-bottom:13px}.field.full{grid-column:1/-1}.label{font-weight:650;display:block;margin-bottom:7px}.note{display:block;color:var(--muted);font-size:12px;margin:-3px 0 8px}.options{display:flex;flex-wrap:wrap;gap:7px}.options label{border:1px solid var(--line);border-radius:7px;padding:7px 9px;cursor:pointer;background:#fff;font-size:13px}.options label:has(input:checked){border-color:var(--blue);color:var(--blue);background:#f0f8ff;font-weight:650}input[type=radio],input[type=checkbox]{accent-color:var(--blue);margin-right:4px}input[type=number],textarea{width:100%;border:1px solid var(--line);border-radius:7px;padding:8px;font:inherit}textarea{min-height:70px}.actions{display:flex;gap:10px;justify-content:flex-end;margin-top:22px}.btn{appearance:none;border:1px solid var(--blue);border-radius:7px;background:var(--blue);color:white;padding:9px 14px;font:inherit;font-weight:650;cursor:pointer}.btn.secondary{background:white;color:var(--blue)}.btn.ghost{background:transparent;color:var(--muted);border-color:var(--line)}.result{display:none;margin-top:20px}.result.active{display:block}.resulthead{display:flex;justify-content:space-between;gap:12px;align-items:center}.resultbox{background:#fff;border:1px solid var(--line);border-radius:12px;padding:24px}.risk{border-radius:8px;padding:10px 12px;margin:14px 0}.risk.low{background:#edf7f1;color:#216b45}.risk.mid{background:#fff7e6;color:#8a5a12}.risk.high{background:#fff0f0;color:var(--red)}.rec-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.rec{border:1px solid var(--line);border-radius:9px;padding:14px}.rec.primary{border-top:4px solid var(--teal)}.rec.alt{border-top:4px solid var(--blue)}.rec h3{margin:0 0 7px}.rec ul,.checks ul{margin:7px 0 0;padding-left:20px}.why{background:#f7fbfd;border-radius:8px;padding:13px 15px;margin-top:16px}.avoid{border-left:4px solid var(--red);padding:7px 0 7px 12px;margin-top:15px}.checklist{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}.checks{border:1px solid var(--line);border-radius:8px;padding:13px}.footer-note{font-size:12px;color:var(--muted);margin-top:20px}.hidden{display:none!important}@media(max-width:720px){.scene-grid,.fields,.rec-grid,.checklist{grid-template-columns:1fr}.wrap{padding:20px 13px}header{display:block}.actions{justify-content:space-between}.resulthead{align-items:flex-start;flex-direction:column}}
+.chat{margin-top:24px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px}.chat h2{margin:0 0 6px}.chat .notice{font-size:13px;color:#66511b;background:#fff9e8;padding:10px 12px;border-radius:7px}.chat-login{display:flex;gap:9px;margin-top:14px}.chat-login input{max-width:330px}.chat-thread{display:none;margin:16px 0;max-height:420px;overflow:auto}.chat-thread.active{display:block}.message{padding:11px 13px;border-radius:9px;margin:8px 0;white-space:pre-wrap}.message.user{background:#edf7ff;margin-left:8%}.message.assistant{background:#f5f7fa;margin-right:8%}.chat-form{display:none;gap:9px}.chat-form.active{display:flex}.chat-form textarea{min-height:76px;flex:1}.chat-status{font-size:13px;color:var(--muted);margin-top:8px}
 </style></head>
 <body><main class="wrap">
 <header><div><h1>腕舟骨骨折 / 不愈合 / SNAC 决策工具</h1><div class="sub">临床快速分流 · Scaphoid fracture, nonunion &amp; SNAC decision support</div></div><button class="btn ghost" onclick="resetAll()">重置全部</button></header>
-<div class="legal"><strong>临床决策支持声明：</strong>本工具仅用于梳理主流手外科决策框架，不替代完整查体、规范 X 线/薄层 CT/MRI（必要时增强）/关节镜评估、患者共同决策或手外科/显微外科会诊。MRI 单一信号（如 T1 低、T2 高）不能单独等同于 AVN；须结合形态、增强表现、CT 骨结构及术中出血情况判断。</div>
+<div class="legal"><strong>教学性分层声明：</strong>本工具不用于自动作出诊断或手术决定。任何“低风险”结论均以关键临床与影像资料完整为前提；资料缺失时，工具只提示进一步评估。急性隐匿骨折、近端极骨折、移位/不稳定骨折、经舟骨围月损伤、疑似不愈合、近端骨块低活性或不可重建，以及任何拟行 PRC/四角融合/全腕融合的病例，均应由手外科医生结合标准 X 线、舟骨长轴薄层 CT、必要时 MRI/关节镜、患者目标及术者经验作最终判断。MRI 单一信号不能单独等同于 AVN。</div>
 <section id="home"><h2>选择当前临床场景</h2><div class="scene-grid">
 <button class="scene" onclick="start('acute')"><span class="letter">A · Acute</span><h2>急性舟骨骨折</h2><p>新近受伤，评估骨折部位、稳定性、移位与高风险近端极。</p><span>开始评估 →</span></button>
 <button class="scene" onclick="start('nonunion')"><span class="letter">B · Nonunion</span><h2>舟骨骨折不愈合</h2><p>未出现明显塌陷或广泛关节炎，重点判断重建难度与血供。</p><span>开始评估 →</span></button>
 <button class="scene" onclick="start('snac')"><span class="letter">C · Collapse / SNAC</span><h2>不愈合伴坏死塌陷 / SNAC</h2><p>按软骨受累分布、腕骨力线与功能需求选择保留或挽救方案。</p><span>开始评估 →</span></button>
 </div></section>
 <section id="wizard" class="wizard"><div class="topline"><button class="btn ghost" onclick="goHome()">← 更换场景</button><span id="sceneTag" class="tag"></span><div id="progress" class="progress"></div></div><div id="steps"></div><section id="result" class="result"></section></section>
+<section class="chat" aria-labelledby="chatTitle"><h2 id="chatTitle">腕舟骨知识问答</h2><p class="muted">仅回答腕舟骨骨折、延迟愈合/不愈合、近端极活性与 SNAC 的教学性问题；以教材要点为优先依据，不替代手外科诊疗。</p><div class="notice">请勿输入姓名、联系方式、影像原图、病历号或其他可识别患者信息。涉及具体患者时，回答将仅作学习性解释，并提示完整影像和手外科会诊要求。</div><div id="chatLogin" class="chat-login"><input id="accessPassword" type="password" autocomplete="current-password" placeholder="输入应用访问密码"><button class="btn" type="button" onclick="unlockChat()">进入问答</button></div><div id="chatThread" class="chat-thread" aria-live="polite"></div><div id="chatForm" class="chat-form"><textarea id="chatQuestion" maxlength="1200" placeholder="例如：近端极骨折为什么通常需要优先评估内固定？"></textarea><button id="chatSend" class="btn" type="button" onclick="askScaphoidQuestion()">提问</button></div><div id="chatStatus" class="chat-status">问答服务需从 Vercel 部署版本访问；密码不会被写入网页源代码。</div></section>
 </main>
 <script>
-const configs={
+let configs={
 acute:{name:'A · 急性舟骨骨折',steps:[
 {title:'症状、体征与时间',help:'先确认临床怀疑程度与延迟诊断风险。',fields:[['age','年龄（岁）','number'],['demand','功能/负荷需求','radio',['一般日常','重体力/运动/需快速回归']],['injury','受伤至今','radio',['≤2 周','2–6 周','>6 周 / 延迟诊断']],['exam','体征','check',['鼻烟窝压痛','舟骨结节压痛','拇指轴向叩痛','疼痛轻微/体征不典型']]]},
 {title:'基础影像与骨折形态',help:'规范舟骨位 X 线阴性而临床怀疑高时，优先 CT 或早期 MRI。',fields:[['site','骨折部位','radio',['远端极','腰部','近端极']],['displace','CT/X 线移位','radio',['无或 <1 mm','≥1 mm','未行 CT / 不确定']],['pattern','不稳定征象','check',['骨折间隙/成角','humpback 倾向','DISI / SL 角异常','垂直斜形骨折']],['comminuted','是否粉碎','radio',['无','轻度','明显/关节面受累']]]},
@@ -35,6 +37,25 @@ snac:{name:'C · 不愈合伴坏死塌陷 / SNAC',steps:[
 ]}
 };
 let scene='',idx=0,data={};
+
+// 教材校对后的字段：先证实诊断与影像完整性，再允许治疗分流。
+configs={
+acute:{name:'A · 急性舟骨损伤',steps:[
+{title:'先确认：已证实骨折，还是隐匿骨折怀疑？',help:'初始 X 线阴性但临床怀疑高时，在高级影像结果前仅作临时保护，不按“稳定骨折”处理。',fields:[['diagnosis','诊断状态','radio',['初始 X 线已见舟骨骨折','X 线未见明确骨折，但临床怀疑高','诊断尚不明确']],['exam','标准体征记录','check',['鼻烟窝压痛','舟骨结节压痛','拇指轴向压痛']],['injury','受伤至今','radio',['≤2 周','2–6 周','>6 周 / 延迟就诊']],['demand','功能/负荷需求','radio',['一般日常','重体力/运动/需快速回归']]]},
+{title:'影像确认与稳定性',help:'建议标准 PA、侧位、斜位、舟骨位；CT 推荐约 0.625 mm 重叠薄层并沿舟骨长轴冠状/矢状重建。',fields:[['advanced','高级影像状态','radio',['CT/MRI 已证实骨折','CT/MRI 尚未完成','等待影像结果']],['site','骨折部位（已证实时填写）','radio',['远端极/结节','腰部','近端极','尚未确定']],['displace','CT 测得移位','radio',['<1 mm','≥1 mm','未完成或不可靠']],['geometry','舟骨几何','radio',['舟骨内角 ≤35°','舟骨内角 >35° / humpback','未测']],['carpal','腕骨不稳（真侧位）','radio',['无：舟月角 ≤60°且头月角 ≤15°','DISI：舟月角 >60°或头月角 >15°','未测']],['redflag','红旗损伤','check',['经舟骨围月骨折脱位/围月脱位','明确韧带损伤','粉碎/关节面受累','无上述红旗']]]},
+{title:'检查与安全修饰因素',help:'CT 与 MRI 的选择取决于本地可及性、成本和欲回答的问题；MRI 尤其有助于隐匿骨折/软组织问题。',fields:[['symptom','疼痛及功能影响','radio',['轻，日常可耐受','中度，握力/活动受限','重，工作或支撑明显受限']],['modifiers','愈合风险修饰因素','check',['吸烟/尼古丁暴露','糖尿病控制不佳','激素使用/炎症性疾病','康复或固定依从性疑虑','无已知修饰因素']],['followup','随访计划','radio',['已安排临床复诊与影像复核','尚未安排']]]}
+]},
+nonunion:{name:'B · 舟骨延迟愈合 / 不愈合（未明显 SNAC）',steps:[
+{title:'病程、症状与诊断状态',help:'延迟愈合、已确立不愈合与不确定状态不可视作同一类。',fields:[['unionStatus','愈合诊断状态','radio',['延迟愈合/纤维性愈合疑似','已确立不愈合','不确定，需 CT 对比']],['duration','骨折至今','radio',['<6 月','6–12 月','>12 月']],['symptom','症状/功能影响','radio',['轻，偶发负荷痛','中度，握力或活动受限','重，持续疼痛/影响工作']],['demand','功能/负荷需求','radio',['一般日常','重体力/运动/需快速回归']],['modifiers','愈合风险修饰因素','check',['吸烟/尼古丁暴露','糖尿病控制不佳','激素使用/炎症性疾病','康复依从性疑虑','无已知修饰因素']]]},
+{title:'CT：机械重建条件',help:'薄层 CT 沿舟骨长轴重建，用于骨缺损、硬化、囊变、humpback、DISI 和近端骨块尺寸的共同判断。',fields:[['ct','薄层 CT + 舟骨轴重建','radio',['已完成','未完成/建议补充']],['site','骨折部位','radio',['远端极','腰部','近端极','不确定']],['defect','骨缺损 / 硬化','radio',['小，无明显硬化','中等，可清创后填补','大，硬化/囊变明显','未评估']],['hump','humpback / 舟骨短缩','radio',['无','轻-中度','明显','未评估']],['disi','DISI / 腕骨力线','radio',['无','可疑/轻度','明确','未评估']],['arthritis','关节炎 / SNAC 状态','radio',['无明显关节炎','局灶可疑，需软骨评估','明确退变（改走 SNAC 路径）','未评估']]]},
+{title:'近端骨块活性与可重建性',help:'血供是连续谱。增强 MRI 有帮助但不能取代结构、术中点状出血与可固定性的综合判断。',fields:[['vascular','近端骨块血供/活性证据','radio',['无明确低活性证据','不确定（非增强 MRI 改变或证据矛盾）','低活性/缺血高度可疑（增强 MRI、CT 形态与术中所见支持）','塌陷、变形或碎裂：先评估是否尚可重建']],['fragment','近端骨块骨量/形态','radio',['足够固定','偏小但可能固定','不可提供稳定固定/碎裂','未评估']],['prior','既往治疗','radio',['初次处理','既往固定或植骨失败','未评估']],['mri','增强 MRI / 血供评估','radio',['已完成','尚未完成/若血供不明建议补充','不适用']]]}
+]},
+snac:{name:'C · 不愈合伴塌陷 / SNAC',steps:[
+{title:'症状、功能与基本影像',help:'影像塌陷与症状可不一致；症状轻时不因片子异常自动进行挽救术。',fields:[['symptom','疼痛与功能影响','radio',['轻，主要负荷/掌撑痛','中度，日常或工作受限','重，持续痛/严重功能障碍']],['demand','功能/负荷需求','radio',['一般日常','重体力/高需求','明确偏好最大活动度/避免融合']],['xray','标准 X 线（PA、侧位、斜位、舟骨位）','radio',['已完成','未完成/建议补充']],['ct','薄层 CT + 腕骨力线','radio',['已完成','未完成/建议补充']],['scope','软骨评估方式','radio',['关节镜或术中软骨评估已完成','影像评估，关节镜待定','尚未评估']]]},
+{title:'结构、可重建性与软骨分布',help:'SNAC 提示由软骨受累分布自动推导；最终术式仍须影像与术中/关节镜软骨面确认。',fields:[['fragment','近端骨块及软骨下骨','radio',['形态保存、可固定','缩小/塌陷但可能重建','明显塌陷、碎裂或不可固定','未评估']],['defect','骨缺损 / humpback','radio',['小或无','中等','大/明显短缩','未评估']],['disi','DISI / 腕骨塌陷/舟头近移','radio',['无明显','轻-中度','明显','未评估']],['cartilage','关节软骨受累分布','radio',['局限桡骨茎突—舟骨远端（SNAC I 提示）','加入舟骨-头状骨退变，头月关节未见明确退变（SNAC II 提示）','中腕/头月关节退变（SNAC III 提示）','桡月关节、月骨窝或头状骨头全层软骨损伤','未明确']]],},
+{title:'血供、重建条件与随访',help:'DISI 代表力线和技术难度，不等同于中腕软骨受累。',fields:[['vascular','近端骨块血供/活性证据','radio',['无明确低活性证据','不确定（证据矛盾）','低活性/缺血高度可疑','塌陷、变形或碎裂']],['followup','已讨论患者目标与随访/康复条件','radio',['是','否/尚未']]]}
+]}
+};
 function esc(s){return String(s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
 function start(s){scene=s;idx=0;data={};document.getElementById('home').classList.add('hidden');document.getElementById('wizard').classList.add('active');document.getElementById('sceneTag').textContent=configs[s].name;render()}
 function goHome(){document.getElementById('home').classList.remove('hidden');document.getElementById('wizard').classList.remove('active');document.getElementById('result').classList.remove('active')}
@@ -88,4 +109,97 @@ function decision(){
 }
 function showResult(){let d=decision(),x=d.x;let summary=`腕舟骨决策摘要\n场景：${configs[scene].name}\n\n录入要点：\n${Object.entries(data).map(([k,v])=>`${k}：${Array.isArray(v)?v.join('、'):v||'未填'}`).join('\n')}\n\n首选策略：\n${d.p.map(i=>'• '+i).join('\n')}\n\n备选策略：\n${d.alt.map(i=>'• '+i).join('\n')}\n\n建议检查：\n${d.tests.map(i=>'• '+i).join('\n')}\n\n说明：\n${x.a.map(i=>'• '+i).join('\n')}`;window.currentSummary=summary;document.getElementById('steps').innerHTML='';let ref=d.ref.length?`<div class="checks"><h3>建议转手外科 / 显微外科评估</h3>${bullet(d.ref)}</div>`:'';let avoid=d.avoid.length?`<div class="avoid"><strong>不宜直接采用的路径 / 重要限制</strong>${bullet(d.avoid)}</div>`:'';document.getElementById('result').className='result active';document.getElementById('result').innerHTML=`<div class="resultbox"><div class="resulthead"><div><div class="tag">${configs[scene].name}</div><h2 style="margin-top:8px">决策建议</h2></div><div class="actions" style="margin:0"><button class="btn secondary" onclick="copySummary()">复制摘要</button><button class="btn" onclick="exportSummary()">导出摘要</button></div></div><div class="risk ${x.risk}"><strong>${x.label}</strong></div><div class="rec-grid"><div class="rec primary"><h3>首选策略</h3>${bullet(d.p)}</div><div class="rec alt"><h3>备选策略</h3>${bullet(d.alt)}</div></div><div class="why"><strong>为什么这样分流</strong>${bullet(x.a)}</div><div class="checklist"><div class="checks"><h3>建议进一步检查</h3>${bullet(d.tests)}</div>${ref||'<div class="checks"><h3>何时升级专科评估</h3><ul><li>疼痛、握力、活动度或工作能力持续恶化。</li><li>复查提示不愈合、力线失代偿或关节炎进展。</li></ul></div>'}</div>${avoid}<p class="footer-note">本摘要仅为临床决策支持。术式适配性仍取决于查体、完整影像、软骨状态、患者目标与术者经验；请勿将此结果作为独立诊疗结论。</p><div class="actions"><button class="btn secondary" onclick="idx=configs[scene].steps.length-1;document.getElementById('result').classList.remove('active');render()">← 修改最后一步</button><button class="btn ghost" onclick="resetAll()">重新开始</button></div></div>`;window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})}
 async function copySummary(){try{await navigator.clipboard.writeText(window.currentSummary);alert('决策摘要已复制。')}catch(e){alert('复制失败，请使用“导出摘要”。')}}function exportSummary(){let b=new Blob([window.currentSummary],{type:'text/plain;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='腕舟骨决策摘要.txt';a.click();URL.revokeObjectURL(a.href)}
+
+// 安全门：缺项不做风险降级，也不显示治疗/术式建议。
+function missingFields(){
+  const need=[]; const add=(k,label)=>{if(!data[k])need.push(label)};
+  if(scene==='acute'){
+    add('diagnosis','诊断状态');add('advanced','CT/MRI 状态');add('injury','受伤时间');
+    if(data.diagnosis==='初始 X 线已见舟骨骨折' || data.advanced==='CT/MRI 已证实骨折'){
+      add('site','骨折部位');add('displace','CT 移位');add('geometry','舟骨几何');add('carpal','腕骨不稳评估');
+    }
+  }else if(scene==='nonunion'){
+    [['unionStatus','愈合诊断状态'],['ct','薄层 CT'],['site','骨折部位'],['defect','骨缺损/硬化'],['hump','humpback/短缩'],['disi','腕骨力线'],['arthritis','关节炎/SNAC 状态'],['fragment','近端骨块可固定性'],['prior','既往治疗']].forEach(([k,l])=>add(k,l));
+  }else{
+    [['symptom','症状程度'],['xray','标准 X 线'],['ct','薄层 CT'],['cartilage','关节软骨受累分布'],['scope','软骨评估方式']].forEach(([k,l])=>add(k,l));
+    if(data.scope==='尚未评估')need.push('软骨评估结果（拟 PRC/四角融合前必需）');
+  }
+  return [...new Set(need)];
+}
+function snacHint(){
+  const c=data.cartilage||'';
+  if(c.includes('SNAC I'))return 'SNAC I 提示：桡茎突—舟骨远端退变';
+  if(c.includes('SNAC II'))return 'SNAC II 提示：加入舟骨—头状骨退变';
+  if(c.includes('SNAC III'))return 'SNAC III 提示：中腕/头月关节退变';
+  return 'SNAC 分期未能推导：需补全软骨受累分布';
+}
+function assessment(){
+  const missing=missingFields();
+  if(missing.length)return {a:['关键信息不足时，工具不会生成保守、手术或术式分流。','请先补全列出的项目；在此之前以保护、检查与专科评估为主。'],risk:'unknown',label:'关键信息不足：不可生成治疗分流',missing};
+  let risk='mid',label='需要结合结构、功能与患者目标的专科共同决策',a=[];
+  if(scene==='acute'){
+    if(data.diagnosis!=='初始 X 线已见舟骨骨折' && data.advanced!=='CT/MRI 已证实骨折'){
+      return {a:['初始 X 线未见明确骨折并不排除舟骨骨折。','在 CT/MRI 结果前，采取临时保护固定并安排复诊；CT 与 MRI 的选择取决于本地可及性、成本和欲回答的临床问题。'],risk:'mid',label:'隐匿骨折怀疑：先证实诊断，不输出稳定骨折治疗',missing:[]};
+    }
+    const red=(data.redflag||[]).some(x=>x!=='无上述红旗');
+    const high=data.site==='近端极'||data.displace==='≥1 mm'||data.geometry==='舟骨内角 >35° / humpback'||data.carpal.includes('DISI')||red||data.injury==='>6 周 / 延迟就诊';
+    if(data.site==='近端极'){risk='high';label='已证实近端极骨折：通常优先手外科内固定评估'}
+    else if(high){risk='high';label='不稳定/延迟骨折风险高：优先手外科评估'}
+    else {risk='low';label='形态相对稳定：可进入保守与固定的共同决策'}
+    a=['稳定性依赖 CT 几何、移位与真侧位力线，而非症状轻重。','近端极因骨块小、关节内、反向血供和较大力臂，通常不纳入常规石膏路径。'];
+  }else if(scene==='nonunion'){
+    if(data.arthritis==='明确退变（改走 SNAC 路径）')return {a:['已有明确退变时，应转入 SNAC 路径，先完成软骨地图与挽救术适配评估。'],risk:'mid',label:'存在关节炎：不适用“无关节炎不愈合”分流',missing:[]};
+    const complex=data.site==='近端极'||data.fragment==='不可提供稳定固定/碎裂'||data.defect==='大，硬化/囊变明显'||data.hump==='明显'||data.disi==='明确'||data.prior==='既往固定或植骨失败'||data.vascular.includes('高度可疑');
+    if(data.fragment==='不可提供稳定固定/碎裂'||data.vascular==='塌陷、变形或碎裂：先评估是否尚可重建'){risk='high';label='近端骨块可能不可重建：需专科复杂重建/挽救评估'}
+    else if(complex){risk='high';label='复杂不愈合：需显微或高容量手外科共同规划'}
+    else if(data.unionStatus==='延迟愈合/纤维性愈合疑似'){risk='mid';label='早期/延迟愈合：先确认机械稳定与骨吸收程度'}
+    else {risk='mid';label='已确立不愈合：在无关节炎前提下规划重建'}
+    a=['近端极活性为连续谱；增强 MRI 有帮助但不能替代结构、术中点状出血和可固定性的综合判断。','VBG 与 NVBG 的相对获益受病例选择与固定质量影响，证据存在争议。'];
+  }else{
+    const terminal=data.cartilage==='桡月关节、月骨窝或头状骨头全层软骨损伤';
+    risk=terminal?'high':data.cartilage.includes('SNAC III')?'high':'mid';
+    label=terminal?'广泛关键软骨受累：需挽救术专科评估':snacHint();
+    a=[snacHint(),'DISI 反映力线与技术难度，不能单独等同于中腕软骨受累或自动决定挽救术级别。'];
+  }
+  return {a,risk,label,missing:[]};
+}
+function decision(){
+  const x=assessment(),p=[],alt=[],tests=[],ref=[],avoid=[];
+  if(x.missing.length)return {p,alt,tests:['补全：'+x.missing.join('、'),'在信息完整前：保护性固定/避免负重，按场景安排手外科或影像评估。'],ref:['近端极、移位/不稳定、经舟骨围月损伤、疑似不愈合或任何拟行挽救术的病例。'],avoid:['缺少关键信息时，不显示首选术式、备选术式或“低风险保守”结论。'],x};
+  if(scene==='acute'){
+    const confirmed=data.diagnosis==='初始 X 线已见舟骨骨折'||data.advanced==='CT/MRI 已证实骨折';
+    if(!confirmed){tests.push('立即 MRI 或 CT 以证实/排除隐匿骨折；两者选择取决于可及性、成本和临床问题。','结果前临时保护固定；可安排 10–14 天复查临床与 X 线作为替代路径。');ref.push('持续高临床怀疑、症状加重或影像结果不一致。');avoid.push('不将“X 线阴性”或“部位未定”归入稳定骨折石膏路径。');return {p,alt,tests,ref,avoid,x};}
+    if(data.site==='近端极'){p.push('优先手外科评估背侧入路内固定可行性；除明确个体化反指征外，不纳入常规石膏路径。');tests.push('薄层 CT 沿舟骨长轴复核近端骨块尺寸、移位与固定抓持条件。');ref.push('所有已证实近端极骨折。');avoid.push('不将近端极“无明显移位”视作普通稳定腰部骨折。');}
+    else if(x.risk==='high'){p.push('手外科评估开放或微创复位内固定；目标为恢复长度、旋转、对线及关节面关系。');alt.push('在明确个体化反指征时，严格保护与密切复评仅作为过渡。');tests.push('薄层 CT 量化移位、舟骨内角、DISI 与粉碎；明确围月/韧带损伤时补充相应评估。');ref.push('≥1 mm 移位、humpback、DISI、粉碎、韧带损伤或经舟骨围月损伤。');avoid.push('急性骨折是否植骨取决于术中骨缺损、粉碎、骨质及延迟/不愈合特征，不是所有高危骨折的默认步骤。');}
+    else if(data.site==='远端极/结节'){p.push('稳定远端极/结节骨折：短臂固定通常约 6–8 周，并按临床与影像愈合调整。');alt.push('高负荷需求者可与手外科讨论固定与回归活动的取舍。');tests.push('以临床与必要时 CT 骨性桥接确认愈合，不以单一无痛作为终点。');}
+    else {p.push('稳定、无/微小移位腰部骨折：石膏固定与螺钉固定均可进入共同决策；固定时长以 CT 证实愈合为准。');alt.push('希望缩短固定期、对位可接受且患者目标合适者，可讨论经皮螺钉固定。');tests.push('随访时以 CT 判断骨性桥接；普通片在早期可能不可靠。');}
+  }else if(scene==='nonunion'){
+    if(data.arthritis==='明确退变（改走 SNAC 路径）'){tests.push('转入 SNAC 路径，进行软骨地图、腕骨力线与挽救术适配评估。');return {p,alt,tests,ref,avoid,x};}
+    const unreconstructable=data.fragment==='不可提供稳定固定/碎裂'||data.vascular==='塌陷、变形或碎裂：先评估是否尚可重建';
+    if(unreconstructable){p.push('普通不愈合植骨固定通常不适用；在专科中心讨论近端极置换/骨软骨重建（如近端钩骨或股骨滑车/髁部移植物）与个体化挽救方案。');alt.push('若关节面尚可且患者症状轻，可在密切随访下进行保护与共同决策。');tests.push('CT 复核近端骨块、软骨下骨与关节面对线；必要时关节镜评估软骨。');ref.push('近端极塌陷、变形、碎裂或无法可靠固定。');avoid.push('不将“不可固定近端极”自动归入常规 NVBG + 螺钉或泛化为必选 MFC/VBG。');}
+    else if(data.unionStatus==='延迟愈合/纤维性愈合疑似'&&data.defect==='小，无明显硬化'&&data.hump==='无'&&data.disi==='无'){p.push('稳定、对位良好且骨丢失极少的延迟愈合：可评估单纯刚性无头加压螺钉固定；并非均需植骨。');alt.push('若随访 CT 见骨吸收、间隙、畸形或固定条件差，升级为植骨重建。');tests.push('CT 对比确认骨性桥接、间隙与稳定性。');}
+    else if(x.risk!=='high'){p.push('已确立、可重建的腰部不愈合且无关节炎：清创 + 自体非血管化植骨（NVBG）+ 无头加压螺钉固定是常用策略。');alt.push('需恢复长度/矫正成角时，可按术者经验采用结构性植骨。');tests.push('CT 定量缺损、humpback、DISI 与近端骨块尺寸；血供不明时可补充增强 MRI。');}
+    else {p.push('复杂但仍可固定的不愈合：由手外科制定固定、矫形与植骨方案；可讨论 NVBG、局部带蒂 VBG 或游离骨瓣。');alt.push('近端极小、低活性高度可疑或既往失败时，VBG/游离移植物可在显微重建中心讨论；不可由 MRI 单一结果断言其必然优于 NVBG。');tests.push('薄层 CT + 舟骨轴重建；增强 MRI 作为辅助血供证据，必要时关节镜。');ref.push('近端极、骨缺损大、明显 humpback/DISI、既往失败或低活性高度可疑。');avoid.push('VBG 不应被呈现为自动“高级/首选”终点；相对获益存在证据不确定性。');}
+  }else{
+    const early=data.cartilage.includes('SNAC I'),stage2=data.cartilage.includes('SNAC II'),stage3=data.cartilage.includes('SNAC III'),terminal=data.cartilage==='桡月关节、月骨窝或头状骨头全层软骨损伤';
+    if(early&&data.symptom==='轻，主要负荷/掌撑痛'){p.push('症状可接受的 SNAC I：观察、负荷调整、护腕、短期镇痛抗炎和随访是合理选择。');alt.push('去神经可作为症状性、关节保留/延后挽救的选择；不纠正不愈合、塌陷或关节炎进展。');tests.push('复查 CT 力线与软骨状态；以疼痛、握力和工作能力作为升级治疗触发点。');avoid.push('有限桡茎突切除不作为常规、孤立的 SNAC 减痛术；仅在 SNAC I 拟行舟骨重建且撞击明确时，作为保留掌侧韧带附着、切除约不超过 6 mm 的联合操作由术者评估。');}
+    else if((early||stage2)&&data.fragment!=='明显塌陷、碎裂或不可固定'){p.push('软骨面总体可用且舟骨仍有可靠固定/重建条件：在高容量团队讨论联合不愈合重建；是否使用血管化移植物取决于结构、活性和既往失败，而非单一 MRI。');alt.push('若重建获益不确定且症状为主，可讨论关节保留性减痛策略作为过渡。');tests.push('关节镜 cartilage mapping，明确头状骨头、月骨窝与桡月关节软骨。');}
+    else if(!terminal&&(stage2||stage3)){p.push('舟骨切除 + 四角融合：在桡月关节可保留、骨量/对线和中腕融合条件合适时可考虑；重点为纠正 DISI、去皮质/植骨/稳定固定并恢复头月对线。');alt.push('PRC 是关节保留挽救术，仅在头状骨头及桡骨月骨窝无全层软骨缺损时讨论；理想对象偏向 >40 岁、低负荷者，年轻或重体力者须充分沟通长期失败及转全腕融合风险。');tests.push('关节镜或术中确认头状骨头、月骨窝和桡月关节软骨；评估负荷需求与康复能力。');avoid.push('不要把“capitolunate/中腕退变”机械地作为四角融合禁忌；关键是保留桡月关节及可实现融合的骨量、对线和固定条件。');}
+    else {p.push('广泛关键软骨受累、持续疼痛且功能严重受限：全腕融合可提供最可靠的减痛与承重稳定性。');alt.push('特定低负荷且关节面条件允许者可讨论其他保留活动度方案，须由专科中心个体化决定。');tests.push('完整 X 线 + 薄层 CT；关节镜用于软骨地图，结合职业负荷、目标及融合后功能接受度。');ref.push('桡月关节/头状骨头或月骨窝全层软骨损伤、明显塌陷，或任何拟行 PRC、四角融合、全腕融合的患者。');avoid.push('头状骨头或月骨窝全层软骨损伤时不宜常规 PRC。');}
+  }
+  return {p,alt,tests,ref,avoid,x};
+}
+function showResult(){
+  const d=decision(),x=d.x,known=Object.entries(data).filter(([,v])=>Array.isArray(v)?v.length:v).map(([k,v])=>`${k}：${Array.isArray(v)?v.join('、'):v}`);
+  const summary=`腕舟骨决策摘要\n场景：${configs[scene].name}\n\n已知资料：\n${known.map(i=>'• '+i).join('\n')||'• 未填'}\n\n缺失资料：\n${x.missing.length?x.missing.map(i=>'• '+i).join('\n'):'• 无关键缺失'}\n\n分流说明：\n${x.a.map(i=>'• '+i).join('\n')}\n\n首选策略：\n${d.p.length?d.p.map(i=>'• '+i).join('\n'):'• 因信息不足，未生成治疗策略。'}\n\n建议检查：\n${d.tests.map(i=>'• '+i).join('\n')}`;
+  window.currentSummary=summary;document.getElementById('steps').innerHTML='';document.getElementById('result').className='result active';
+  const unknown=x.missing.length>0;
+  document.getElementById('result').innerHTML=`<div class="resultbox"><div class="resulthead"><div><div class="tag">${configs[scene].name}</div><h2 style="margin-top:8px">决策建议</h2></div><div class="actions" style="margin:0"><button class="btn secondary" onclick="copySummary()">复制摘要</button><button class="btn" onclick="exportSummary()">导出摘要</button></div></div><div class="risk ${x.risk==='unknown'?'mid':x.risk}"><strong>${x.label}</strong></div>${unknown?`<div class="why"><strong>待补全项目（完成前不显示治疗分流）</strong>${bullet(x.missing)}</div>`:`<div class="rec-grid"><div class="rec primary"><h3>首选策略</h3>${bullet(d.p)}</div><div class="rec alt"><h3>备选策略</h3>${bullet(d.alt)}</div></div>`}<div class="why"><strong>为什么这样分流</strong>${bullet(x.a)}</div><div class="checklist"><div class="checks"><h3>已知资料</h3>${bullet(known.length?known:['尚无完整资料'])}</div><div class="checks"><h3>建议进一步检查</h3>${bullet(d.tests)}</div></div>${d.ref.length?`<div class="checks"><h3>建议转手外科 / 显微外科评估</h3>${bullet(d.ref)}</div>`:''}${d.avoid.length?`<div class="avoid"><strong>重要限制 / 不宜直接采用的路径</strong>${bullet(d.avoid)}</div>`:''}<p class="footer-note">本摘要是教学性临床决策支持。术式适配性取决于完整查体、标准影像、软骨实际质量、患者目标、康复能力及术者经验；未填项目不会被静默当作“正常”。</p><div class="actions"><button class="btn secondary" onclick="idx=configs[scene].steps.length-1;document.getElementById('result').classList.remove('active');render()">← 修改最后一步</button><button class="btn ghost" onclick="resetAll()">重新开始</button></div></div>`;
+  window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
+}
+const scaphoidChat={password:'',history:[]};
+function chatStatus(text){document.getElementById('chatStatus').textContent=text}
+function addChatMessage(role,text){const node=document.createElement('div');node.className=`message ${role}`;node.textContent=text;document.getElementById('chatThread').appendChild(node);document.getElementById('chatThread').scrollTop=999999}
+function unlockChat(){const password=document.getElementById('accessPassword').value;if(!password){chatStatus('请输入应用访问密码。');return}scaphoidChat.password=password;document.getElementById('chatLogin').classList.add('hidden');document.getElementById('chatThread').classList.add('active');document.getElementById('chatForm').classList.add('active');chatStatus('已解锁。请仅输入不含患者可识别信息的腕舟骨教学问题。');addChatMessage('assistant','你好。我仅回答腕舟骨骨折、延迟愈合/不愈合、近端极活性和 SNAC 的教学性问题。请描述你的学习问题，不要提供可识别患者信息。')}
+async function askScaphoidQuestion(){const input=document.getElementById('chatQuestion'),button=document.getElementById('chatSend'),question=input.value.trim();if(!question)return;if(question.length>1200){chatStatus('问题过长，请控制在 1200 字以内。');return}input.value='';addChatMessage('user',question);button.disabled=true;chatStatus('正在生成教学性回答…');try{const res=await fetch('/api/scaphoid-chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({accessPassword:scaphoidChat.password,question,history:scaphoidChat.history.slice(-6)})});const body=await res.json();if(!res.ok)throw new Error(body.error||'服务暂不可用');addChatMessage('assistant',body.answer);scaphoidChat.history.push({role:'user',content:question},{role:'assistant',content:body.answer});chatStatus(body.notice||'回答仅供教学使用，不替代临床诊疗。')}catch(err){const fallback=location.hostname.endsWith('github.io')?'此页面是 GitHub Pages 静态版本，问答功能仅在 Vercel 部署域名下可用。':'问答服务暂不可用：'+err.message;chatStatus(fallback)}finally{button.disabled=false}}
 </script></body></html>
