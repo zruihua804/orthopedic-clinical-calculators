@@ -42,15 +42,31 @@ export default async function handler(req, res) {
 
   const safeHistory = Array.isArray(history) ? history.slice(-MAX_TURNS).filter((m) => m && ['user', 'assistant'].includes(m.role) && typeof m.content === 'string' && m.content.length <= 1800) : [];
   try {
+    // 本应用需要直接显示简短教学回答。V4-Flash 默认开启思考模式；在较短
+    // token 预算下，可能只返回 reasoning 而没有可显示的正文，因此这里明确关闭。
+    const model = process.env.DEEPSEEK_MODEL || 'deepseek-v4-flash';
     const upstream = await fetch('https://api.deepseek.com/chat/completions', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${process.env.DEEPSEEK_API_KEY}` },
-      body: JSON.stringify({ model: process.env.DEEPSEEK_MODEL || 'deepseek-v4-flash', temperature: 0.2, max_tokens: 900, messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...safeHistory, { role: 'user', content: question.trim() }] })
+      body: JSON.stringify({
+        model,
+        thinking: { type: 'disabled' },
+        temperature: 0.2,
+        max_tokens: 900,
+        messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...safeHistory, { role: 'user', content: question.trim() }]
+      })
     });
     const data = await upstream.json();
-    if (!upstream.ok) return json(res, 502, { error: data?.error?.message || '模型服务暂时不可用。' });
-    const answer = data?.choices?.[0]?.message?.content?.trim();
-    if (!answer) return json(res, 502, { error: '模型未返回有效内容。' });
+    if (!upstream.ok) {
+      console.error('DeepSeek request failed', { status: upstream.status, model, type: data?.error?.type });
+      return json(res, 502, { error: data?.error?.message || `模型服务返回 ${upstream.status}，请检查 DeepSeek 密钥、额度与模型配置。` });
+    }
+    const content = data?.choices?.[0]?.message?.content;
+    const answer = typeof content === 'string' ? content.trim() : '';
+    if (!answer) {
+      console.error('DeepSeek response had no displayable content', { model, finishReason: data?.choices?.[0]?.finish_reason });
+      return json(res, 502, { error: '模型未产生可显示正文，请稍后重试；如持续出现，请检查 Vercel 日志。' });
+    }
     return json(res, 200, { answer, notice: '教学性回答，不替代完整查体、影像判读或手外科会诊。' });
   } catch (error) {
     return json(res, 502, { error: '连接模型服务失败，请稍后重试。' });
