@@ -1,0 +1,6 @@
+{
+  "name": "orthopedic-clinical-calculators-vercel-api",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=20" }
+}
